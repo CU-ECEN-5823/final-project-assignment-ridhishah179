@@ -48,6 +48,8 @@
 #endif
 
 #include "src/ble_mesh_device_type.h"
+#include "src/state_handler.h"
+#include "src/gpio.h"
 
 /***********************************************************************************************//**
  * @addtogroup Application
@@ -130,7 +132,23 @@ int main(void)
   initBoard();
   // Initialize application
   initApp();
+
   initVcomEnable();
+
+  gpioInit();
+
+  Enable_switch_interrupt();
+
+  cmu_setup();
+
+  letimer_setup();
+
+  logInit();
+
+  displayInit();
+
+
+
 
   // Minimize advertisement latency by allowing the advertiser to always
   // interrupt the scanner.

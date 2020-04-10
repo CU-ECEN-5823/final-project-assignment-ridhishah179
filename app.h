@@ -22,6 +22,19 @@
 extern "C" {
 #endif
 
+#define TIMER_ID_FACTORY_RESET    77
+#define DELAY_2S		(2 * 32768)
+
+uint16 element_index_global;	// For indexing elements of the node
+uint16 address_global;
+
+struct switch_state
+{
+	uint8_t onoff_current;          /**< Current generic on/off value */
+	uint8_t onoff_target; 	 		/**< Target generic on/off value */
+}switch_state_obj;
+
+
 /***********************************************************************************************//**
  * \defgroup app Application Code
  * \brief Sample Application Implementation
@@ -47,6 +60,8 @@ void gecko_bgapi_classes_init_server_friend(void);
  ******************************************************************************/
 void gecko_bgapi_classes_init_client_lpn(void);
 
+
+void switch_node_init(void);
 /***************************************************************************//**
  * Handling of stack events. Both Bluetooth LE and Bluetooth mesh events
  * are handled here.
