@@ -219,7 +219,7 @@ static errorcode_t switch_onoff_publish(uint16_t element_index,
 }
 
 /*******************************************************************************
- * This function process the requests for the LC generic on/off model.
+ * This function process the requests for the Switch generic on/off model.
  *
  * @param[in] model_id       Server model ID.
  * @param[in] element_index  Server model element index.
@@ -314,7 +314,6 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
 {
 
   struct gecko_msg_system_get_bt_address_rsp_t *dev_addr;
-  static uint8_t boot_flag = 0;
   struct gecko_msg_mesh_node_initialized_evt_t *pData = (struct gecko_msg_mesh_node_initialized_evt_t *)&(evt->data);
 
   if (NULL == evt) {
@@ -352,7 +351,6 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
     			 gecko_cmd_mesh_node_init();
     		 }
 
-    	 boot_flag = 1;
          break;
 
         /*Software timer for factory reset 2sec*/
@@ -419,12 +417,16 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
 
         case gecko_evt_mesh_generic_server_client_request_id:
         	if(DeviceUsesServerModel())
+        	{
         		mesh_lib_generic_server_event_handler(evt);
+        	}
    			break;
 
         case gecko_evt_mesh_generic_server_state_changed_id:
         	if(DeviceUsesServerModel())
+        	{
         		mesh_lib_generic_server_event_handler(evt);
+        	}
         break;
 
         /*connection opened*/
@@ -465,7 +467,7 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
         			struct mesh_generic_request Request;
 
         			button_pressed = 0;
-        			if(DeviceUsesClientModel()&& boot_flag)
+        			if(DeviceUsesClientModel())
         				{
         					switch_val = !GPIO_PinInGet(gpioPortF, 6);
         					displayPrintf(DISPLAY_ROW_CLIENTADDR,"Button State: %u", switch_val);
