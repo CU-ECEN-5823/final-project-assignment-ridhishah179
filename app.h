@@ -23,6 +23,7 @@ extern "C" {
 #endif
 
 #define TIMER_ID_FACTORY_RESET    77
+#define TIMER_ID_FRIEND_FIND      20
 #define DELAY_2S		(2 * 32768)
 
 uint16 element_index_global;	// For indexing elements of the node
@@ -60,6 +61,7 @@ void gecko_bgapi_classes_init_server_friend(void);
  ******************************************************************************/
 void gecko_bgapi_classes_init_client_lpn(void);
 
+void LPN_Init(void);
 
 void switch_node_init(void);
 /***************************************************************************//**

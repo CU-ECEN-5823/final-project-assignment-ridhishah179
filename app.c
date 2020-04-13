@@ -78,7 +78,7 @@ void gecko_bgapi_classes_init_server_friend(void)
   //gecko_bgapi_class_mesh_health_client_init();
   //gecko_bgapi_class_mesh_health_server_init();
   //gecko_bgapi_class_mesh_test_init();
-  //gecko_bgapi_class_mesh_lpn_init();
+  gecko_bgapi_class_mesh_lpn_init();
   gecko_bgapi_class_mesh_friend_init();
   gecko_bgapi_class_mesh_lc_server_init();
   gecko_bgapi_class_mesh_lc_setup_server_init();
@@ -119,7 +119,36 @@ void gecko_bgapi_classes_init_client_lpn(void)
 }
 
 
+void LPN_Init(void)
+{
+	uint16 result = 0;
 
+	result = gecko_cmd_mesh_lpn_init()->result;
+	if (result)
+	{
+		LOG_INFO("\nLPN init failed 0x%x\n", result);
+		return;
+	}
+
+	// Configure with Minimum friend queue length = 2, Poll timeout = 1 seconds
+	 result = gecko_cmd_mesh_lpn_config(mesh_lpn_queue_length, 2)->result;
+	  if (result) {
+	    LOG_INFO("LPN queue configuration failed (0x%x)\r\n", result);
+	    return;
+	  }
+	  // Configure LPN Poll timeout = 5 seconds
+	  result = gecko_cmd_mesh_lpn_config(mesh_lpn_poll_timeout,1000)->result;
+	  if (result) {
+	    LOG_INFO("LPN Poll timeout configuration failed (0x%x)\r\n", result);
+	    return;
+	  }
+
+	result = gecko_cmd_mesh_lpn_establish_friendship(0)->result;
+	if (result != 0)
+	{
+		LOG_INFO("Return Code %x", result);
+	}
+}
 /***************************************************************************//**
  * This function is called to initiate factory reset. Factory reset may be
  * initiated by keeping one of the pushbuttons pressed during reboot.
@@ -315,6 +344,7 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
 
   struct gecko_msg_system_get_bt_address_rsp_t *dev_addr;
   struct gecko_msg_mesh_node_initialized_evt_t *pData = (struct gecko_msg_mesh_node_initialized_evt_t *)&(evt->data);
+  uint16_t result = 0;
 
   if (NULL == evt) {
     return;
@@ -355,11 +385,19 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
 
         /*Software timer for factory reset 2sec*/
   	  	case gecko_evt_hardware_soft_timer_id:
-    		if(evt->data.evt_hardware_soft_timer.handle==TIMER_ID_FACTORY_RESET)
-    			{
-    				LOG_INFO("\nFactory Reset\n");
-    				gecko_cmd_system_reset(0);
-    			}
+    		switch(evt->data.evt_hardware_soft_timer.handle)
+    		{
+    		case TIMER_ID_FACTORY_RESET:
+  	  					LOG_INFO("\nAt Soft Timer - Timer Factory Reset\n");
+  	  					gecko_cmd_system_reset(0);
+  	  					break;
+    		case TIMER_ID_FRIEND_FIND:
+  	  					result = gecko_cmd_mesh_lpn_establish_friendship(0)->result;
+  	  					if (result != 0)
+  	  					{
+  	  						LOG_INFO("Return Code %x", result);
+  	  					}
+    		}		break;
     		break;
 
     /*Handle events for mesh node initialization*/
@@ -371,7 +409,9 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
   			  element_index_global = 0;
   			  displayPrintf(DISPLAY_ROW_ACTION, "Provisioned");
   			  gecko_cmd_mesh_generic_client_init();
+  			  LPN_Init();
   			  switch_node_init();
+
 
   		  }
 
@@ -381,7 +421,9 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
   	       	  element_index_global = 0;
   	       	  displayPrintf(DISPLAY_ROW_ACTION, "Provisioned");
   	       	  gecko_cmd_mesh_generic_server_init();
+  	          LPN_Init();
   	       	  switch_node_init();
+
   	      	}
 
 
@@ -442,6 +484,8 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
             /* Enter to DFU OTA mode */
             gecko_cmd_system_reset(2);
           }
+          else
+        	  LPN_Init();
           break;
 
          /*mesh node reset*/
@@ -449,6 +493,23 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
         	LOG_INFO("\nReset\n");
         	initiate_factory_reset();
         break;
+
+        case gecko_evt_mesh_lpn_friendship_established_id:
+        	displayPrintf(DISPLAY_ROW_FRIENDSTATUS, "Friend Connected");
+        	LOG_INFO("\nFriendship Established\n");
+        	break;
+
+        case gecko_evt_mesh_lpn_friendship_failed_id:
+       		displayPrintf(DISPLAY_ROW_FRIENDSTATUS, "");
+        	LOG_INFO("\nFailed to establish Friendship\n");
+        	gecko_cmd_hardware_set_soft_timer(DELAY_2S, TIMER_ID_FRIEND_FIND, true);
+        	break;
+
+        case gecko_evt_mesh_lpn_friendship_terminated_id:
+        	displayPrintf(DISPLAY_ROW_FRIENDSTATUS, "");
+        	LOG_INFO("\nFriendship Terminated\n");
+        	gecko_cmd_hardware_set_soft_timer(DELAY_2S, TIMER_ID_FRIEND_FIND, true);
+        	break;
 
         /*Handle external signals from LETIMER and GPIO Switch Interrupts */
         case gecko_evt_system_external_signal_id:
@@ -512,6 +573,7 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
 
       }
     }
+
 
     /** @} (end addtogroup app) */
     /** @} (end addtogroup Application) */
