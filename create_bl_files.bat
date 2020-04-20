@@ -35,9 +35,6 @@ set UARTDFU_FULL_NAME=full
 set GBL_SIGING_KEY_FILE=app-sign-key.pem
 set GBL_ENCRYPT_KEY_FILE=app-encrypt-key.txt
 
-:: bootlader file name
-set BOOTLOADER_FILE=bootloader-second-stage.s37
-
 :: change the working dir to the dir of the batch file, which should be in the project root
 cd %~dp0
 
@@ -88,12 +85,8 @@ if errorlevel 1 (
   pause
   goto:eof
 )
-if exist %BOOTLOADER_FILE% (
-echo Bootloader file was found
-%COMMANDER% gbl create "%PATH_GBL%\%OTA_APPLO_NAME%-bootloader.gbl" --app "%PATH_GBL%\%OTA_APPLO_NAME%.srec" --bootloader %BOOTLOADER_FILE%
-) else (
 %COMMANDER% gbl create "%PATH_GBL%\%OTA_APPLO_NAME%.gbl" --app "%PATH_GBL%\%OTA_APPLO_NAME%.srec"
-)
+
 echo.
 echo **********************************************************************
 echo Creating %OTA_APPLI_NAME%.gbl for OTA
@@ -126,12 +119,7 @@ if exist %GBL_ENCRYPT_KEY_FILE% (
   echo Creating encrypted .gbl files
   echo **********************************************************************
   echo.
-  if exist %BOOTLOADER_FILE% (
-    echo Bootloader file was found
-    %COMMANDER% gbl create "%PATH_GBL%\%OTA_APPLO_NAME%-bootloader-encrypted.gbl" --app "%PATH_GBL%\%OTA_APPLO_NAME%.srec" --encrypt %GBL_ENCRYPT_KEY_FILE%  --bootloader %BOOTLOADER_FILE%
-  ) else (
-    %COMMANDER% gbl create "%PATH_GBL%\%OTA_APPLO_NAME%-encrypted.gbl" --app "%PATH_GBL%\%OTA_APPLO_NAME%.srec" --encrypt %GBL_ENCRYPT_KEY_FILE%
-  )
+  %COMMANDER% gbl create "%PATH_GBL%\%OTA_APPLO_NAME%-encrypted.gbl" --app "%PATH_GBL%\%OTA_APPLO_NAME%.srec" --encrypt %GBL_ENCRYPT_KEY_FILE%
   echo.
   %COMMANDER% gbl create "%PATH_GBL%\%OTA_APPLI_NAME%-encrypted.gbl" --app "%PATH_GBL%\%OTA_APPLI_NAME%.srec" --encrypt %GBL_ENCRYPT_KEY_FILE%
   echo.
@@ -147,12 +135,7 @@ if exist %GBL_SIGING_KEY_FILE% (
   echo.
   %COMMANDER% convert "%PATH_GBL%\%OTA_APPLO_NAME%.srec" --secureboot --keyfile %GBL_SIGING_KEY_FILE% -o "%PATH_GBL%\%OTA_APPLO_NAME%-signed.srec"
   if exist "%PATH_GBL%\%OTA_APPLO_NAME%-signed.srec" (
-    if exist %BOOTLOADER_FILE% (
-      echo Bootloader file was found
-      %COMMANDER% gbl create "%PATH_GBL%\%OTA_APPLO_NAME%-bootloader-signed.gbl" --app "%PATH_GBL%\%OTA_APPLO_NAME%-signed.srec" --sign %GBL_SIGING_KEY_FILE% --bootloader %BOOTLOADER_FILE%
-    ) else (
-      %COMMANDER% gbl create "%PATH_GBL%\%OTA_APPLO_NAME%-signed.gbl" --app "%PATH_GBL%\%OTA_APPLO_NAME%-signed.srec" --sign %GBL_SIGING_KEY_FILE%
-    )
+    %COMMANDER% gbl create "%PATH_GBL%\%OTA_APPLO_NAME%-signed.gbl" --app "%PATH_GBL%\%OTA_APPLO_NAME%-signed.srec" --sign %GBL_SIGING_KEY_FILE%
   )
   echo.
   %COMMANDER% convert "%PATH_GBL%\%OTA_APPLI_NAME%.srec" --secureboot --keyfile %GBL_SIGING_KEY_FILE% -o "%PATH_GBL%\%OTA_APPLI_NAME%-signed.srec"
@@ -173,64 +156,12 @@ if exist %GBL_SIGING_KEY_FILE% (
     echo **********************************************************************
     echo.
     if exist "%PATH_GBL%\%OTA_APPLO_NAME%-signed.srec" (
-      if exist %BOOTLOADER_FILE% (
-        echo Bootloader file was found
-        %COMMANDER% gbl create "%PATH_GBL%\%OTA_APPLO_NAME%-bootloader-signed-encrypted.gbl" --app "%PATH_GBL%\%OTA_APPLO_NAME%-signed.srec" --encrypt %GBL_ENCRYPT_KEY_FILE% --sign %GBL_SIGING_KEY_FILE% --bootloader %BOOTLOADER_FILE%
-      ) else (
-        %COMMANDER% gbl create "%PATH_GBL%\%OTA_APPLO_NAME%-signed-encrypted.gbl" --app "%PATH_GBL%\%OTA_APPLO_NAME%-signed.srec" --encrypt %GBL_ENCRYPT_KEY_FILE% --sign %GBL_SIGING_KEY_FILE%
-      )
+      %COMMANDER% gbl create "%PATH_GBL%\%OTA_APPLO_NAME%-signed-encrypted.gbl" --app "%PATH_GBL%\%OTA_APPLO_NAME%-signed.srec" --encrypt %GBL_ENCRYPT_KEY_FILE% --sign %GBL_SIGING_KEY_FILE%
       echo.
     )
     %COMMANDER% gbl create "%PATH_GBL%\%OTA_APPLI_NAME%-signed-encrypted.gbl" --app "%PATH_GBL%\%OTA_APPLI_NAME%-signed.srec" --encrypt %GBL_ENCRYPT_KEY_FILE% --sign %GBL_SIGING_KEY_FILE%
     echo.
     %COMMANDER% gbl create "%PATH_GBL%\%UARTDFU_FULL_NAME%-signed-encrypted.gbl" --app "%PATH_GBL%\%UARTDFU_FULL_NAME%-signed.srec" --encrypt %GBL_ENCRYPT_KEY_FILE% --sign %GBL_SIGING_KEY_FILE%
-  )
-) else (
-echo.
-  echo **********************************************************************
-  echo Creating crc .gbl files
-  echo **********************************************************************
-  echo.
-  %COMMANDER% convert "%PATH_GBL%\%OTA_APPLO_NAME%.srec" --crc -o "%PATH_GBL%\%OTA_APPLO_NAME%-crc.srec"
-  if exist "%PATH_GBL%\%OTA_APPLO_NAME%-crc.srec" (
-    if exist %BOOTLOADER_FILE% (
-      echo Bootloader file was found
-      %COMMANDER% gbl create "%PATH_GBL%\%OTA_APPLO_NAME%-bootloader-crc.gbl" --app "%PATH_GBL%\%OTA_APPLO_NAME%-crc.srec" --bootloader %BOOTLOADER_FILE%
-    ) else (
-      %COMMANDER% gbl create "%PATH_GBL%\%OTA_APPLO_NAME%-crc.gbl" --app "%PATH_GBL%\%OTA_APPLO_NAME%-crc.srec"
-    )
-
-  )
-  echo.
-  %COMMANDER% convert "%PATH_GBL%\%OTA_APPLI_NAME%.srec" --crc -o "%PATH_GBL%\%OTA_APPLI_NAME%-crc.srec"
-  %COMMANDER% gbl create "%PATH_GBL%\%OTA_APPLI_NAME%-crc.gbl" --app "%PATH_GBL%\%OTA_APPLI_NAME%-crc.srec"
-  echo.
-  if exist "%PATH_GBL%\%OTA_APPLO_NAME%-crc.srec" (
-    %COMMANDER% convert "%PATH_GBL%\%OTA_APPLO_NAME%-crc.srec" "%PATH_GBL%\%OTA_APPLI_NAME%-crc.srec" -o "%PATH_GBL%\%UARTDFU_FULL_NAME%-crc.srec"
-  ) else (
-    copy "%PATH_GBL%\%OTA_APPLI_NAME%-crc.srec" "%PATH_GBL%\%UARTDFU_FULL_NAME%-crc.srec" >NUL
-  )
-  %COMMANDER% gbl create "%PATH_GBL%\%UARTDFU_FULL_NAME%-crc.gbl" --app "%PATH_GBL%\%UARTDFU_FULL_NAME%-crc.srec"
-
-  :: create crc and encrypted GBL file if encrypt-key file exist
-  if exist %GBL_ENCRYPT_KEY_FILE% (
-    echo.
-    echo **********************************************************************
-    echo Creating crc and encrypted .gbl files
-    echo **********************************************************************
-    echo.
-    if exist "%PATH_GBL%\%OTA_APPLO_NAME%-crc.srec" (
-      if exist %BOOTLOADER_FILE% (
-          echo Bootloader file was found
-          %COMMANDER% gbl create "%PATH_GBL%\%OTA_APPLO_NAME%-bootloader-crc-encrypted.gbl" --app "%PATH_GBL%\%OTA_APPLO_NAME%-crc.srec" --encrypt %GBL_ENCRYPT_KEY_FILE% --bootloader %BOOTLOADER_FILE%
-        ) else (
-          %COMMANDER% gbl create "%PATH_GBL%\%OTA_APPLO_NAME%-crc-encrypted.gbl" --app "%PATH_GBL%\%OTA_APPLO_NAME%-crc.srec" --encrypt %GBL_ENCRYPT_KEY_FILE%
-        )
-      echo.
-    )
-    %COMMANDER% gbl create "%PATH_GBL%\%OTA_APPLI_NAME%-crc-encrypted.gbl" --app "%PATH_GBL%\%OTA_APPLI_NAME%-crc.srec" --encrypt %GBL_ENCRYPT_KEY_FILE%
-    echo.
-    %COMMANDER% gbl create "%PATH_GBL%\%UARTDFU_FULL_NAME%-crc-encrypted.gbl" --app "%PATH_GBL%\%UARTDFU_FULL_NAME%-crc.srec" --encrypt %GBL_ENCRYPT_KEY_FILE%
   )
 )
 

@@ -30,8 +30,21 @@
 #include "src/ble_mesh_device_type.h"
 #include "src/gecko_ble_errors.h"
 #include "src/gpio.h"
+#include "board_features.h"
+#include <gecko_configuration.h>
+#include "retargetserial.h"
+#include <mesh_sizes.h>
+
+/* Coex header */
+#include "coexistence-ble.h"
+
+/* Device initialization header */
+#include "hal-config.h"
+
 /* GPIO peripheral library */
 #include <em_gpio.h>
+#include "em_emu.h"
+#include "em_cmu.h"
 
 /* Own header */
 #include "app.h"
@@ -39,7 +52,9 @@
 /// Flag for indicating DFU Reset must be performed
 static uint8_t boot_to_dfu = 0;
 extern int period_expired;
-extern int button_pressed;
+extern int fire_detected;
+uint32_t adc_data;
+extern bool TX_done_flag;
 /***********************************************************************************************//**
  * @addtogroup Application
  * @{
@@ -57,33 +72,19 @@ extern int button_pressed;
 
 void gecko_bgapi_classes_init_server_friend(void)
 {
-  gecko_bgapi_class_dfu_init();
-  gecko_bgapi_class_system_init();
-  gecko_bgapi_class_le_gap_init();
-  gecko_bgapi_class_le_connection_init();
-  //gecko_bgapi_class_gatt_init();
-  gecko_bgapi_class_gatt_server_init();
-  gecko_bgapi_class_hardware_init();
-  gecko_bgapi_class_flash_init();
-  gecko_bgapi_class_test_init();
-  //gecko_bgapi_class_sm_init();
-  gecko_bgapi_class_mesh_node_init();
-  //gecko_bgapi_class_mesh_prov_init();
-  gecko_bgapi_class_mesh_proxy_init();
-  gecko_bgapi_class_mesh_proxy_server_init();
-  //gecko_bgapi_class_mesh_proxy_client_init();
-  //gecko_bgapi_class_mesh_generic_client_init();
-  gecko_bgapi_class_mesh_generic_server_init();
-  //gecko_bgapi_class_mesh_vendor_model_init();
-  //gecko_bgapi_class_mesh_health_client_init();
-  //gecko_bgapi_class_mesh_health_server_init();
-  //gecko_bgapi_class_mesh_test_init();
-  gecko_bgapi_class_mesh_lpn_init();
-  gecko_bgapi_class_mesh_friend_init();
-  gecko_bgapi_class_mesh_lc_server_init();
-  gecko_bgapi_class_mesh_lc_setup_server_init();
-  gecko_bgapi_class_mesh_scene_server_init();
-  gecko_bgapi_class_mesh_scene_setup_server_init();
+	gecko_bgapi_class_dfu_init();
+		gecko_bgapi_class_system_init();
+		gecko_bgapi_class_le_gap_init();
+		gecko_bgapi_class_le_connection_init();
+		gecko_bgapi_class_gatt_server_init();
+		gecko_bgapi_class_hardware_init();
+		gecko_bgapi_class_flash_init();
+		gecko_bgapi_class_test_init();
+		gecko_bgapi_class_mesh_node_init();
+		gecko_bgapi_class_mesh_proxy_init();
+		gecko_bgapi_class_mesh_proxy_server_init();
+		gecko_bgapi_class_mesh_generic_server_init();
+		gecko_bgapi_class_mesh_lpn_init();
 }
 
 
@@ -93,29 +94,18 @@ void gecko_bgapi_classes_init_server_friend(void)
 void gecko_bgapi_classes_init_client_lpn(void)
 {
 	gecko_bgapi_class_dfu_init();
-	gecko_bgapi_class_system_init();
-	gecko_bgapi_class_le_gap_init();
-	gecko_bgapi_class_le_connection_init();
-	//gecko_bgapi_class_gatt_init();
-	gecko_bgapi_class_gatt_server_init();
-	gecko_bgapi_class_hardware_init();
-	gecko_bgapi_class_flash_init();
-	gecko_bgapi_class_test_init();
-	//gecko_bgapi_class_sm_init();
-	gecko_bgapi_class_mesh_node_init();
-	//gecko_bgapi_class_mesh_prov_init();
-	gecko_bgapi_class_mesh_proxy_init();
-	gecko_bgapi_class_mesh_proxy_server_init();
-	//gecko_bgapi_class_mesh_proxy_client_init();
-	gecko_bgapi_class_mesh_generic_client_init();
-	//gecko_bgapi_class_mesh_generic_server_init();
-	//gecko_bgapi_class_mesh_vendor_model_init();
-	//gecko_bgapi_class_mesh_health_client_init();
-	//gecko_bgapi_class_mesh_health_server_init();
-	//gecko_bgapi_class_mesh_test_init();
-	gecko_bgapi_class_mesh_lpn_init();
-	//gecko_bgapi_class_mesh_friend_init();
-	gecko_bgapi_class_mesh_scene_client_init();
+		gecko_bgapi_class_system_init();
+		gecko_bgapi_class_le_gap_init();
+		gecko_bgapi_class_le_connection_init();
+		gecko_bgapi_class_gatt_server_init();
+		gecko_bgapi_class_hardware_init();
+		gecko_bgapi_class_flash_init();
+		gecko_bgapi_class_test_init();
+		gecko_bgapi_class_mesh_node_init();
+		gecko_bgapi_class_mesh_proxy_init();
+		gecko_bgapi_class_mesh_proxy_server_init();
+		gecko_bgapi_class_mesh_generic_client_init();
+		gecko_bgapi_class_mesh_lpn_init();
 }
 
 
@@ -353,7 +343,7 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
   switch (evt_id)
   {
   	  case gecko_evt_system_boot_id:
-  		  element_index_global = 0l;
+  		  element_index_global = 01;
   		  address_global = 0;
   		  switch_state_obj.onoff_current = 0;
   		  switch_state_obj.onoff_target = 0;
@@ -369,7 +359,7 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
     			 dev_addr->address.addr[1],dev_addr->address.addr[0]);
 
     	 /*Factory reset System if switch is pressed*/
-    	 if((GPIO_PinInGet(gpioPortF, 6) == 0) ||( GPIO_PinInGet(gpioPortF, 7) == 0))
+    	 if((GPIO_PinInGet(gpioPortF, 6) == 0))
     		 {
     		 	 displayPrintf(DISPLAY_ROW_ACTION,"FACTORY RESET");
     			 initiate_factory_reset();
@@ -397,7 +387,9 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
   	  					{
   	  						LOG_INFO("Return Code %x", result);
   	  					}
-    		}		break;
+  	  					break;
+
+    		}
     		break;
 
     /*Handle events for mesh node initialization*/
@@ -448,6 +440,7 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
  				gecko_cmd_mesh_generic_server_init();
 
        		switch_node_init();
+       		LPN_Init();
         	displayPrintf(DISPLAY_ROW_ACTION, "Provisioned");
    			break;
 
@@ -473,6 +466,7 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
 
         /*connection opened*/
         case gecko_evt_le_connection_opened_id:
+        	BTSTACK_CHECK_RESPONSE(gecko_cmd_mesh_lpn_deinit());
         	LOG_INFO("\nConnection Opened\n");
         	displayPrintf(DISPLAY_ROW_CONNECTION, "Connected");
         break;
@@ -495,18 +489,18 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
         break;
 
         case gecko_evt_mesh_lpn_friendship_established_id:
-        	displayPrintf(DISPLAY_ROW_FRIENDSTATUS, "Friend Connected");
+        	displayPrintf(DISPLAY_ROW_BTADDR+1, "Friend Connected");
         	LOG_INFO("\nFriendship Established\n");
         	break;
 
         case gecko_evt_mesh_lpn_friendship_failed_id:
-       		displayPrintf(DISPLAY_ROW_FRIENDSTATUS, "");
+       		displayPrintf(DISPLAY_ROW_BTADDR+1, "");
         	LOG_INFO("\nFailed to establish Friendship\n");
         	gecko_cmd_hardware_set_soft_timer(DELAY_2S, TIMER_ID_FRIEND_FIND, true);
         	break;
 
         case gecko_evt_mesh_lpn_friendship_terminated_id:
-        	displayPrintf(DISPLAY_ROW_FRIENDSTATUS, "");
+        	displayPrintf(DISPLAY_ROW_BTADDR+1, "");
         	LOG_INFO("\nFriendship Terminated\n");
         	gecko_cmd_hardware_set_soft_timer(DELAY_2S, TIMER_ID_FRIEND_FIND, true);
         	break;
@@ -517,21 +511,29 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
         	if(evt->data.evt_system_external_signal.extsignals & period_expired)
         		{
         			period_expired = 0;
+        			//TX_done_flag = 0;
+        			//adc_reading();
+        			//LOG_INFO("\n Sensor data= %d",adc_data);
         			displayUpdate();
           		}
 
-        	if(evt->data.evt_system_external_signal.extsignals & button_pressed)
+        	if(evt->data.evt_system_external_signal.extsignals & fire_detected)
         		{
         			uint8_t switch_val = 0;
         			uint16_t  ret = 0;
         			static uint8_t txid= 0;
         			struct mesh_generic_request Request;
 
-        			button_pressed = 0;
+        			fire_detected = 0;
         			if(DeviceUsesClientModel())
         				{
-        					switch_val = !GPIO_PinInGet(gpioPortF, 6);
-        					displayPrintf(DISPLAY_ROW_CLIENTADDR,"Button State: %u", switch_val);
+        					switch_val = !GPIO_PinInGet(gpioPortC, 9);
+
+        					if(switch_val)
+        						displayPrintf(DISPLAY_ROW_CLIENTADDR,"");
+        					else
+        						displayPrintf(DISPLAY_ROW_CLIENTADDR,"FIRE DETECTED ");
+
         					Request.kind = mesh_generic_request_on_off;
 
         					if(switch_val)

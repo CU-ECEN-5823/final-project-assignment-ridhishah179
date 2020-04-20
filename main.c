@@ -51,6 +51,7 @@
 #include "src/state_handler.h"
 #include "src/gpio.h"
 
+
 /***********************************************************************************************//**
  * @addtogroup Application
  * @{
@@ -137,11 +138,13 @@ int main(void)
 
   gpioInit();
 
-  Enable_switch_interrupt();
+  Enable_sensor_interrupt();
 
   cmu_setup();
 
   letimer_setup();
+
+ // setupSensor();
 
   logInit();
 

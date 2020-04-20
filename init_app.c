@@ -48,3 +48,11 @@ void initApp(void)
   GPIO_PinModeSet(BSP_I2CSENSOR_ENABLE_PORT, BSP_I2CSENSOR_ENABLE_PIN, gpioModePushPull, DISPLAY_SENSOR_COMMON_ENABLE);
 #endif
 }
+
+void initVcomEnable(void)
+{
+#if defined(HAL_VCOM_ENABLE)
+  // Enable VCOM if requested
+  GPIO_PinModeSet(BSP_VCOM_ENABLE_PORT, BSP_VCOM_ENABLE_PIN, gpioModePushPull, HAL_VCOM_ENABLE);
+#endif // HAL_VCOM_ENABLE
+}

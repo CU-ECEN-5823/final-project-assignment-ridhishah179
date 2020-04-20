@@ -36,7 +36,7 @@
 #undef BSP_CLK_LFXO_CTUNE
 #endif
 #define BSP_CLK_LFXO_CTUNE                            (32)
- 
+
 #define HAL_PA_RAMP                                   (10)
 #define HAL_PA_2P4_LOWPOWER                           (0)
 #define HAL_PA_POWER                                  (252)
