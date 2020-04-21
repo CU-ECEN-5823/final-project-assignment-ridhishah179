@@ -26,8 +26,10 @@
 #define LCD_PIN 15
 #define Extcomin_port gpioPortD
 #define Extcomin_pin  13
-#define FIRE_SENSOR_PORT gpioPortC
-#define FIRE_SENSOR_PIN 9
+#define FIRE_SENSOR_PORT gpioPortD
+#define FIRE_SENSOR_PIN 12
+#define FIRE_SENSOR_VCC_PORT gpioPortD
+#define FIRE_SENSOR_VCC_PIN 11
 
 
 void gpioInit()
@@ -38,6 +40,7 @@ void gpioInit()
 	//GPIO_DriveStrengthSet(LED1_port, gpioDriveStrengthStrongAlternateStrong);
 	GPIO_DriveStrengthSet(LED1_port, gpioDriveStrengthWeakAlternateWeak);
 	GPIO_PinModeSet(LED1_port, LED1_pin, gpioModePushPull, false);
+	GPIO_PinModeSet(FIRE_SENSOR_VCC_PORT,FIRE_SENSOR_VCC_PIN, gpioModePushPull, false);
 	fire_detected = 0;
 }
 
@@ -76,7 +79,15 @@ void gpioSetDisplayExtcomin(bool high)
 }
 
 
+void Load_Power_On()
+{
+	GPIO_PinOutSet(FIRE_SENSOR_VCC_PORT, FIRE_SENSOR_VCC_PIN);
+}
 
+void Load_Power_off()
+{
+	GPIO_PinOutClear(FIRE_SENSOR_VCC_PORT, FIRE_SENSOR_VCC_PIN);
+}
 
 void Enable_sensor_interrupt(void)
 {
@@ -101,20 +112,14 @@ void Enable_sensor_interrupt(void)
 void callback_func()
 {
 	CORE_ATOMIC_IRQ_DISABLE();
-    LOG_INFO("HERE");
     fire_detected= 1;
-    LOG_INFO(" val %d",GPIO_PinInGet(gpioPortC, 9));
     gecko_external_signal(fire_detected);
     CORE_ATOMIC_IRQ_ENABLE();
 }
 
-
-
-
 void callback_func1()
 {
 	CORE_ATOMIC_IRQ_DISABLE();
-    LOG_INFO("HERE");
     LOG_INFO(" val %d",GPIO_PinInGet(gpioPortF, 6));
     CORE_ATOMIC_IRQ_ENABLE();
 }

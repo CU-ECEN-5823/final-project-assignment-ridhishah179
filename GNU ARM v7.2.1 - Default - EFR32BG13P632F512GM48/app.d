@@ -92,7 +92,11 @@ app.o: ../app.c \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\protocol\bluetooth\bt_mesh\inc\common/mesh_sizes.h \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179/mesh_app_memory_config.h \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\protocol\bluetooth\ble_stack\inc\soc/coexistence-ble.h \
- ../hal-config.h ../app.h
+ ../hal-config.h ../src/adc.h \
+ C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_adc.h \
+ C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_chip.h \
+ C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_system.h \
+ ../src/gpio.h ../app.h
 
 C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\protocol\bluetooth\bt_mesh\inc\common/bg_types.h:
 
@@ -289,5 +293,15 @@ C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179/m
 C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\protocol\bluetooth\ble_stack\inc\soc/coexistence-ble.h:
 
 ../hal-config.h:
+
+../src/adc.h:
+
+C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_adc.h:
+
+C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_chip.h:
+
+C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_system.h:
+
+../src/gpio.h:
 
 ../app.h:

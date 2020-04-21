@@ -12,7 +12,7 @@
 #include <math.h>
 
 
-#define PERIOD (1000) //Configure the desired period for the LED
+#define PERIOD (3000) //Configure the desired period for the LED
 
  //extern uint16_t temp_event;
 

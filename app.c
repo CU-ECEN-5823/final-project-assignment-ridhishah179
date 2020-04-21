@@ -45,7 +45,8 @@
 #include <em_gpio.h>
 #include "em_emu.h"
 #include "em_cmu.h"
-
+#include "src/adc.h"
+#include "src/gpio.h"
 /* Own header */
 #include "app.h"
 
@@ -53,8 +54,8 @@
 static uint8_t boot_to_dfu = 0;
 extern int period_expired;
 extern int fire_detected;
-uint32_t adc_data;
-extern bool TX_done_flag;
+uint16_t fire_value_millivolts = 0;
+extern bool ADC_flag;
 /***********************************************************************************************//**
  * @addtogroup Application
  * @{
@@ -127,7 +128,7 @@ void LPN_Init(void)
 	    return;
 	  }
 	  // Configure LPN Poll timeout = 5 seconds
-	  result = gecko_cmd_mesh_lpn_config(mesh_lpn_poll_timeout,1000)->result;
+	  result = gecko_cmd_mesh_lpn_config(mesh_lpn_poll_timeout,5000)->result;
 	  if (result) {
 	    LOG_INFO("LPN Poll timeout configuration failed (0x%x)\r\n", result);
 	    return;
@@ -510,11 +511,34 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
 
         	if(evt->data.evt_system_external_signal.extsignals & period_expired)
         		{
+
+        			uint8_t transaction_id = 0;
+        			struct mesh_generic_state req;
+        			uint16 ret;
         			period_expired = 0;
-        			//TX_done_flag = 0;
-        			//adc_reading();
-        			//LOG_INFO("\n Sensor data= %d",adc_data);
-        			displayUpdate();
+        			ADC_flag = 0;
+        			fire_value_millivolts = get_adc_data();
+        			LOG_INFO("\n Sensor data= %d",fire_value_millivolts);
+
+        			req.kind= mesh_generic_state_level;
+        			req.level.level=fire_value_millivolts;
+
+        				ret = mesh_lib_generic_client_publish(
+        							MESH_GENERIC_LEVEL_CLIENT_MODEL_ID,
+        							element_index_global,
+        							transaction_id,
+        							&req,
+        							0,
+        							0,
+        							0
+        					);
+        					transaction_id++;
+        					if (ret) {
+        						printf("gecko_cmd_mesh_generic_client_publish failed,code %x\r\n", ret);
+        					} else {
+        						printf("request sent, trid = %u, delay = %d\r\n", transaction_id, 0);
+        					}
+
           		}
 
         	if(evt->data.evt_system_external_signal.extsignals & fire_detected)
@@ -527,20 +551,20 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
         			fire_detected = 0;
         			if(DeviceUsesClientModel())
         				{
-        					switch_val = !GPIO_PinInGet(gpioPortC, 9);
+        					switch_val = !GPIO_PinInGet(gpioPortD, 12);
 
         					if(switch_val)
         						displayPrintf(DISPLAY_ROW_CLIENTADDR,"");
         					else
-        						displayPrintf(DISPLAY_ROW_CLIENTADDR,"FIRE DETECTED ");
+        						displayPrintf(DISPLAY_ROW_CLIENTADDR," FIRE DETECTED ");
 
         					Request.kind = mesh_generic_request_on_off;
 
         					if(switch_val)
-        						Request.on_off = MESH_GENERIC_ON_OFF_STATE_ON;
+        						Request.on_off = MESH_GENERIC_ON_OFF_STATE_OFF;
 
 							else
-								Request.on_off = MESH_GENERIC_ON_OFF_STATE_OFF;
+								Request.on_off = MESH_GENERIC_ON_OFF_STATE_ON;
 
         					ret = mesh_lib_generic_client_publish(MESH_GENERIC_ON_OFF_CLIENT_MODEL_ID, element_index_global, txid, &Request, 0,0,0);
 
@@ -557,6 +581,8 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
         				}
         			}
         break;
+
+
 
         case gecko_evt_gatt_server_user_write_request_id:
           if (evt->data.evt_gatt_server_user_write_request.characteristic == gattdb_ota_control) {
