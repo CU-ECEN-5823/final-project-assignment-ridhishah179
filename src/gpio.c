@@ -79,15 +79,7 @@ void gpioSetDisplayExtcomin(bool high)
 }
 
 
-void Load_Power_On()
-{
-	GPIO_PinOutSet(FIRE_SENSOR_VCC_PORT, FIRE_SENSOR_VCC_PIN);
-}
 
-void Load_Power_off()
-{
-	GPIO_PinOutClear(FIRE_SENSOR_VCC_PORT, FIRE_SENSOR_VCC_PIN);
-}
 
 void Enable_sensor_interrupt(void)
 {

@@ -25,8 +25,7 @@ void button_init();
 void Enable_sensor_interrupt();
 void callback_func();
 void callback_func1();
-void Load_Power_off();
-void Load_Power_On();
+
 
 
 #endif /* SRC_GPIO_H_ */

@@ -402,7 +402,7 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
   			  element_index_global = 0;
   			  displayPrintf(DISPLAY_ROW_ACTION, "Provisioned");
   			  gecko_cmd_mesh_generic_client_init();
-  			  LPN_Init();
+  			//  LPN_Init();
   			  switch_node_init();
 
 
@@ -414,7 +414,7 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
   	       	  element_index_global = 0;
   	       	  displayPrintf(DISPLAY_ROW_ACTION, "Provisioned");
   	       	  gecko_cmd_mesh_generic_server_init();
-  	          LPN_Init();
+  	        //LPN_Init();
   	       	  switch_node_init();
 
   	      	}
@@ -441,7 +441,7 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
  				gecko_cmd_mesh_generic_server_init();
 
        		switch_node_init();
-       		LPN_Init();
+       		//LPN_Init();
         	displayPrintf(DISPLAY_ROW_ACTION, "Provisioned");
    			break;
 
@@ -480,7 +480,9 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
             gecko_cmd_system_reset(2);
           }
           else
-        	  LPN_Init();
+          {
+        	 // LPN_Init();
+          }
           break;
 
          /*mesh node reset*/
