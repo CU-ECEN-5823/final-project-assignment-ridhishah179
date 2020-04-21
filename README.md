@@ -2,9 +2,15 @@
 
 ##### Group Members : Ridhi Shah, Vatsal Sheth, Amreeta Sengupta
 
-##### Shared Folder Link : https://drive.google.com/drive/u/0/folders/1LwaKyDHQj_LD0B7xC4oMFjqPXb2wJUsY
+## Project Status 
 
-##### Individual Folder Link : https://drive.google.com/drive/folders/1NRAWJLthj0o71-OZ1gPeN7XCEyt4xyPn
+     Fire Sensor has been interfaced and Digital output pin is connected to pin 12 of the gpioPortD  and Analog output has been       
+     GPIO interrupt was configured and the potentiometer value on the fire sensor was set such as to define an extreme value to a given     environmental situation and an interrupt is raised when the signal exceeds this extreme value. 
+     For monitoring the continuous values on the fire sensor the analog output pin is used. ADC configuration has been done for 12-bit        ADC with 2.5 volts internal reference to read these analog values from the fire sensor. 
+     The Alert message when extreme value is crossed has been sent to the friend using Generic ON/OFF model. 
+     Generic Level Model has also been implemented to send fire sensor values to the friend node for continuous monitoring.
+     Communication has been established between LPN and friend nodes and transmission of the alert message and data has been verified.
+
 
 ##### Checked repository contains the following code implementation:
      
@@ -16,3 +22,7 @@
      
       In addition to the above files the repository contains all the supporting files for bluetooth mesh implementation and SDK support. 
 
+
+##### Shared Folder Link : https://drive.google.com/drive/u/0/folders/1LwaKyDHQj_LD0B7xC4oMFjqPXb2wJUsY
+
+##### Individual Folder Link : https://drive.google.com/drive/folders/1NRAWJLthj0o71-OZ1gPeN7XCEyt4xyPn
