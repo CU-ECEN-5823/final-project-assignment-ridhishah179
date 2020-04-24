@@ -85,18 +85,13 @@ app.o: ../app.c \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\middleware\glib\glib/glib_color.h \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\middleware\glib/dmd/dmd.h \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\middleware\glib/em_types.h \
- ../src/ble_mesh_device_type.h ../src/gecko_ble_errors.h ../src/gpio.h \
- ../board_features.h \
- C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\hardware\kit\common\drivers/retargetserial.h \
- C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\hardware\kit\common\halconfig/retargetserialhalconfig.h \
- C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\protocol\bluetooth\bt_mesh\inc\common/mesh_sizes.h \
- C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179/mesh_app_memory_config.h \
+ ../src/ble_mesh_device_type.h ../src/gecko_ble_errors.h \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\protocol\bluetooth\ble_stack\inc\soc/coexistence-ble.h \
- ../hal-config.h ../src/adc.h \
+ ../hal-config.h ../app.h ../src/adc.h \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_adc.h \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_chip.h \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_system.h \
- ../src/gpio.h ../app.h
+ ../src/gpio.h ../src/gpio.h
 
 C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\protocol\bluetooth\bt_mesh\inc\common/bg_types.h:
 
@@ -278,21 +273,11 @@ C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\p
 
 ../src/gecko_ble_errors.h:
 
-../src/gpio.h:
-
-../board_features.h:
-
-C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\hardware\kit\common\drivers/retargetserial.h:
-
-C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\hardware\kit\common\halconfig/retargetserialhalconfig.h:
-
-C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\protocol\bluetooth\bt_mesh\inc\common/mesh_sizes.h:
-
-C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179/mesh_app_memory_config.h:
-
 C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\protocol\bluetooth\ble_stack\inc\soc/coexistence-ble.h:
 
 ../hal-config.h:
+
+../app.h:
 
 ../src/adc.h:
 
@@ -304,4 +289,4 @@ C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\p
 
 ../src/gpio.h:
 
-../app.h:
+../src/gpio.h:

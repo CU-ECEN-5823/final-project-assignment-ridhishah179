@@ -49,8 +49,7 @@
 
 #include "src/ble_mesh_device_type.h"
 #include "src/state_handler.h"
-#include "src/gpio.h"
-#include "src/adc.h"
+
 
 /***********************************************************************************************//**
  * @addtogroup Application

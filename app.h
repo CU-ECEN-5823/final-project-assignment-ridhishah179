@@ -22,12 +22,19 @@
 extern "C" {
 #endif
 
+#include "src/adc.h"
+#include "src/gpio.h"
+
 #define TIMER_ID_FACTORY_RESET    77
 #define TIMER_ID_FRIEND_FIND      20
 #define DELAY_2S		(2 * 32768)
+#define FLAME_KEY 0x4001
 
 uint16 element_index_global;	// For indexing elements of the node
 uint16 address_global;
+extern int period_expired;
+extern int fire_detected;
+extern bool ADC_flag;
 
 struct switch_state
 {

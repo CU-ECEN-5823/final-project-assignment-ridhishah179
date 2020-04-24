@@ -29,11 +29,8 @@
 #include "src/state_handler.h"
 #include "src/ble_mesh_device_type.h"
 #include "src/gecko_ble_errors.h"
-#include "src/gpio.h"
-#include "board_features.h"
-#include <gecko_configuration.h>
-#include "retargetserial.h"
-#include <mesh_sizes.h>
+
+
 
 /* Coex header */
 #include "coexistence-ble.h"
@@ -45,17 +42,14 @@
 #include <em_gpio.h>
 #include "em_emu.h"
 #include "em_cmu.h"
-#include "src/adc.h"
-#include "src/gpio.h"
+
 /* Own header */
 #include "app.h"
 
+
 /// Flag for indicating DFU Reset must be performed
 static uint8_t boot_to_dfu = 0;
-extern int period_expired;
-extern int fire_detected;
-uint16_t fire_value_millivolts = 0;
-extern bool ADC_flag;
+
 /***********************************************************************************************//**
  * @addtogroup Application
  * @{
@@ -109,6 +103,37 @@ void gecko_bgapi_classes_init_client_lpn(void)
 		gecko_bgapi_class_mesh_lpn_init();
 }
 
+void store_data_in_flash(uint16_t KEY , uint16_t Sensor_state)
+{
+	int ret;
+	uint8_t * persistent_data;
+	persistent_data =&Sensor_state;
+	ret=gecko_cmd_flash_ps_save(KEY, sizeof(Sensor_state),persistent_data)->result;
+	LOG_INFO("%s in storing persistent data with return value  %d)",ret ? "Failed" : "Successful",ret);
+}
+
+
+uint16_t load_data_from_flash(uint16_t KEY)
+{
+	uint16_t persistent_data;
+	struct gecko_msg_flash_ps_load_rsp_t* ret;
+	ret=(gecko_cmd_flash_ps_load(KEY));
+	memcpy(&persistent_data,&ret->value.data,ret->value.len);
+	LOG_INFO("Persistent data is %d",persistent_data);
+	return persistent_data;
+}
+
+
+/**
+ * @brief : displaying the persistent data on LCD
+ */
+void display_flash_data()
+{
+	uint16_t persistent_data;
+	persistent_data=load_data_from_flash(FLAME_KEY);
+	displayPrintf(DISPLAY_ROW_ACTION+1,"Sensor state :%d",persistent_data);
+	LOG_INFO("FLAME DATA %d",persistent_data);
+}
 
 void LPN_Init(void)
 {
@@ -317,19 +342,6 @@ void switch_node_init(void)
  * @param[in] evt_id  Incoming event ID.
  * @param[in] evt     Pointer to incoming event.
  ******************************************************************************/
-/**************************** INSTRUCTIONS ************************************
- * 1. Before proceeding with assignment profile the project with attached blue
- * gecko and verify if it is being scanned by mobile mesh App.
- * 2. Use Bluetooth Mesh app from Silicon labs for the same and if you are not
- * able to get the app working checkout nRF Mesh App on play store.
- * 3. Add the necessary events for the mesh in switch (evt_id) similar to the
- * BLE assignments.
- * 4. Use the following pdf for reference
- * https://www.silabs.com/documents/public/reference-manuals/bluetooth-le-and-mesh-software-api-reference-manual.pdf
- * 5. Remember to check and log the return status for every Mesh API used.
- * 6. You can take the hints from light and switch example for mesh to know which
- * commands and events are needed and to understand the flow.
- ******************************************************************************/
 void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
 {
 
@@ -402,8 +414,9 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
   			  element_index_global = 0;
   			  displayPrintf(DISPLAY_ROW_ACTION, "Provisioned");
   			  gecko_cmd_mesh_generic_client_init();
-  			//  LPN_Init();
+  			  LPN_Init();
   			  switch_node_init();
+  			  display_flash_data();
 
 
   		  }
@@ -414,14 +427,18 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
   	       	  element_index_global = 0;
   	       	  displayPrintf(DISPLAY_ROW_ACTION, "Provisioned");
   	       	  gecko_cmd_mesh_generic_server_init();
-  	        //LPN_Init();
+  	          LPN_Init();
   	       	  switch_node_init();
+  	          display_flash_data();
 
   	      	}
 
 
   	         else if(!evt->data.evt_mesh_node_initialized.provisioned)
+  	         {
   	          	gecko_cmd_mesh_node_start_unprov_beaconing(0x3);   // enable ADV and GATT provisioning bearer
+  	            display_flash_data();
+  	         }
 
   	         break;
 
@@ -441,7 +458,7 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
  				gecko_cmd_mesh_generic_server_init();
 
        		switch_node_init();
-       		//LPN_Init();
+       		LPN_Init();
         	displayPrintf(DISPLAY_ROW_ACTION, "Provisioned");
    			break;
 
@@ -481,7 +498,7 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
           }
           else
           {
-        	 // LPN_Init();
+        	  LPN_Init();
           }
           break;
 
@@ -508,7 +525,7 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
         	gecko_cmd_hardware_set_soft_timer(DELAY_2S, TIMER_ID_FRIEND_FIND, true);
         	break;
 
-        /*Handle external signals from LETIMER and GPIO Switch Interrupts */
+        /*Handle external signals from LETIMER and GPIO Interrupts */
         case gecko_evt_system_external_signal_id:
 
         	if(evt->data.evt_system_external_signal.extsignals & period_expired)
@@ -517,6 +534,7 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
         			uint8_t transaction_id = 0;
         			struct mesh_generic_state req;
         			uint16 ret;
+        			uint16_t fire_value_millivolts = 0;
         			period_expired = 0;
         			ADC_flag = 0;
         			fire_value_millivolts = get_adc_data();
@@ -545,7 +563,7 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
 
         	if(evt->data.evt_system_external_signal.extsignals & fire_detected)
         		{
-        			uint8_t switch_val = 0;
+        			uint16_t switch_val = 0;
         			uint16_t  ret = 0;
         			static uint8_t txid= 0;
         			struct mesh_generic_request Request;
@@ -553,12 +571,18 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
         			fire_detected = 0;
         			if(DeviceUsesClientModel())
         				{
-        					switch_val = !GPIO_PinInGet(gpioPortD, 12);
+        					switch_val = GPIO_PinInGet(gpioPortD, 12);
 
         					if(switch_val)
-        						displayPrintf(DISPLAY_ROW_CLIENTADDR,"");
+        					{
+        						displayPrintf(DISPLAY_ROW_CLIENTADDR,"FIRE DETECTED");
+        						store_data_in_flash(FLAME_KEY,switch_val);
+        					}
         					else
-        						displayPrintf(DISPLAY_ROW_CLIENTADDR," FIRE DETECTED ");
+        					{
+        						displayPrintf(DISPLAY_ROW_CLIENTADDR,"  ");
+        						store_data_in_flash(FLAME_KEY,switch_val);
+        					}
 
         					Request.kind = mesh_generic_request_on_off;
 
