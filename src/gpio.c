@@ -58,7 +58,6 @@ void gpioSetDisplayExtcomin(bool high)
 
 void Enable_sensor_interrupt(void)
 {
-
 	 GPIOINT_Init();
 
 	  GPIO_PinModeSet(BSP_BUTTON0_PORT, BSP_BUTTON0_PIN, gpioModeInputPull, 1);
@@ -71,8 +70,6 @@ void Enable_sensor_interrupt(void)
 	  /* register the callback function that is invoked when interrupt occurs */
 	  GPIOINT_CallbackRegister(FIRE_SENSOR_PIN, callback_func);
 	  GPIOINT_CallbackRegister(BSP_BUTTON0_PIN, callback_func1);
-
-
 
 }
 //Interrupt handler for push button

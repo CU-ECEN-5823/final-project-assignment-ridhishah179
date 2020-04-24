@@ -344,7 +344,6 @@ void switch_node_init(void)
  ******************************************************************************/
 void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
 {
-
   struct gecko_msg_system_get_bt_address_rsp_t *dev_addr;
   struct gecko_msg_mesh_node_initialized_evt_t *pData = (struct gecko_msg_mesh_node_initialized_evt_t *)&(evt->data);
   uint16_t result = 0;
@@ -417,8 +416,6 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
   			  LPN_Init();
   			  switch_node_init();
   			  display_flash_data();
-
-
   		  }
 
   	       else if(pData->provisioned && DeviceIsOnOffSubscriber())
@@ -538,6 +535,14 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
         			period_expired = 0;
         			ADC_flag = 0;
         			fire_value_millivolts = get_adc_data();
+
+        			//LOG_INFO("\n Sensor data= %d",fire_value_millivolts);
+
+        			if(fire_value_millivolts > 2000)
+        			{
+        				fire_value_millivolts = (fire_value_millivolts -2000)/5 ;
+        			}
+
         			LOG_INFO("\n Sensor data= %d",fire_value_millivolts);
 
         			req.kind= mesh_generic_state_level;
@@ -587,10 +592,16 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
         					Request.kind = mesh_generic_request_on_off;
 
         					if(switch_val)
+        					{
         						Request.on_off = MESH_GENERIC_ON_OFF_STATE_OFF;
 
+        					}
+
 							else
+							{
 								Request.on_off = MESH_GENERIC_ON_OFF_STATE_ON;
+
+							}
 
         					ret = mesh_lib_generic_client_publish(MESH_GENERIC_ON_OFF_CLIENT_MODEL_ID, element_index_global, txid, &Request, 0,0,0);
 
@@ -607,8 +618,6 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
         				}
         			}
         break;
-
-
 
         case gecko_evt_gatt_server_user_write_request_id:
           if (evt->data.evt_gatt_server_user_write_request.characteristic == gattdb_ota_control) {

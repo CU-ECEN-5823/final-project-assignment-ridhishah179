@@ -388,8 +388,7 @@ mesh_lib_generic_client_get(uint16_t model_id,
  *
  * @return bg_err_success if request was made, an error code otherwise
  */
-errorcode_t
-mesh_lib_generic_client_set(uint16_t model_id,
+errorcode_t mesh_lib_generic_client_set(uint16_t model_id,
                             uint16_t element_index,
                             uint16_t server_addr,
                             uint16_t appkey_index,
@@ -419,8 +418,7 @@ mesh_lib_generic_client_set(uint16_t model_id,
  *
  * @return bg_err_success if publishing was done; an error otherwise
  */
-errorcode_t
-mesh_lib_generic_client_publish(uint16_t model_id,
+errorcode_t mesh_lib_generic_client_publish(uint16_t model_id,
                                 uint16_t element_index,
                                 uint8_t transaction_id,
                                 const struct mesh_generic_request *req,
@@ -441,8 +439,7 @@ mesh_lib_generic_client_publish(uint16_t model_id,
  *
  * @return bg_err_success if registration succeeded; an error otherwise
  */
-errorcode_t
-mesh_lib_generic_client_register_handler(uint16_t model_id,
+errorcode_t mesh_lib_generic_client_register_handler(uint16_t model_id,
                                          uint16_t element_index,
                                          mesh_lib_generic_client_server_response_cb cb);
 

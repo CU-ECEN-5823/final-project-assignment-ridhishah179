@@ -38,15 +38,11 @@ uint16_t get_adc_data()
 	 ADC_IntEnable(ADC0,ADC_IF_SINGLE);
 	ADC_Start(ADC0, adcStartSingle);
 	if(ADC_flag)
-
 	{
-
 		uint32_t ADC_data = ((0xFFF)^ ADC_DataSingleGet(ADC0))+1;
 		sensor_data = ((ADC_data * 2500)/4096) + 2;
 
-
 	}
-
 	return sensor_data;
 }
 
