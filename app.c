@@ -1,5 +1,6 @@
 /***************************************************************************//**
  * @file app.c
+ * @Author : Ridhi Shah
  * @brief Application code
  * @references: Silicon labs Bluetooth Mesh example/Demo - soc-btmesh-light & soc-btmesh-switch, AN1098.
  * 				parts of code leveraged from soc-btmesh-light & soc-btmesh-switch examples
@@ -26,7 +27,6 @@
 #include "gatt_db.h"
 #include "mesh_generic_model_capi_types.h"
 #include "mesh_lib.h"
-#include "src/state_handler.h"
 #include "src/ble_mesh_device_type.h"
 #include "src/gecko_ble_errors.h"
 
@@ -43,28 +43,16 @@
 #include "em_emu.h"
 #include "em_cmu.h"
 
-/* Own header */
+/* Own header and other required headers */
+#include "src/state_handler.h"
 #include "app.h"
 
 
-/// Flag for indicating DFU Reset must be performed
+/*Flag for indicating DFU Reset must be performed*/
 static uint8_t boot_to_dfu = 0;
 
-/***********************************************************************************************//**
- * @addtogroup Application
- * @{
- **************************************************************************************************/
 
-/***********************************************************************************************//**
- * @addtogroup app
- * @{
- **************************************************************************************************/
-
-/*******************************************************************************
- * Initialize used bgapi classes for server.
- ******************************************************************************/
-
-
+ /*Initialize used bgapi classes for server.*/
 void gecko_bgapi_classes_init_server_friend(void)
 {
 	gecko_bgapi_class_dfu_init();
@@ -83,9 +71,7 @@ void gecko_bgapi_classes_init_server_friend(void)
 }
 
 
-/*******************************************************************************
- * Initialize used bgapi classes for server.
- ******************************************************************************/
+/* Initialize used bgapi classes for server.*/
 void gecko_bgapi_classes_init_client_lpn(void)
 {
 	gecko_bgapi_class_dfu_init();
@@ -103,6 +89,7 @@ void gecko_bgapi_classes_init_client_lpn(void)
 		gecko_bgapi_class_mesh_lpn_init();
 }
 
+/*Function to save data in key specified in flash*/
 void store_data_in_flash(uint16_t KEY , uint16_t Sensor_state)
 {
 	int ret;
@@ -112,7 +99,7 @@ void store_data_in_flash(uint16_t KEY , uint16_t Sensor_state)
 	LOG_INFO("%s in storing persistent data with return value  %d)",ret ? "Failed" : "Successful",ret);
 }
 
-
+/*Function to load data from key specified in flash*/
 uint16_t load_data_from_flash(uint16_t KEY)
 {
 	uint16_t persistent_data;
@@ -124,9 +111,7 @@ uint16_t load_data_from_flash(uint16_t KEY)
 }
 
 
-/**
- * @brief : displaying the persistent data on LCD
- */
+/*Function to save data from flash on the LCD*/
 void display_flash_data()
 {
 	uint16_t persistent_data;
@@ -135,6 +120,7 @@ void display_flash_data()
 	LOG_INFO("FLAME DATA %d",persistent_data);
 }
 
+/*Function to initialize Node as LPN and establish friendship with friend node*/
 void LPN_Init(void)
 {
 	uint16 result = 0;
@@ -146,13 +132,12 @@ void LPN_Init(void)
 		return;
 	}
 
-	// Configure with Minimum friend queue length = 2, Poll timeout = 1 seconds
 	 result = gecko_cmd_mesh_lpn_config(mesh_lpn_queue_length, 2)->result;
 	  if (result) {
 	    LOG_INFO("LPN queue configuration failed (0x%x)\r\n", result);
 	    return;
 	  }
-	  // Configure LPN Poll timeout = 5 seconds
+
 	  result = gecko_cmd_mesh_lpn_config(mesh_lpn_poll_timeout,5000)->result;
 	  if (result) {
 	    LOG_INFO("LPN Poll timeout configuration failed (0x%x)\r\n", result);
@@ -165,12 +150,8 @@ void LPN_Init(void)
 		LOG_INFO("Return Code %x", result);
 	}
 }
-/***************************************************************************//**
- * This function is called to initiate factory reset. Factory reset may be
- * initiated by keeping one of the pushbuttons pressed during reboot.
- * Factory reset is also performed if it is requested by the provisioner
- * (event gecko_evt_mesh_node_reset_id).
- ******************************************************************************/
+
+/*Function for factory resetting the system*/
 void initiate_factory_reset(void)
 {
 	LOG_INFO("\nAt Factory Reset\n");
@@ -180,13 +161,7 @@ void initiate_factory_reset(void)
 	BTSTACK_CHECK_RESPONSE(gecko_cmd_hardware_set_soft_timer(DELAY_2S, TIMER_ID_FACTORY_RESET, true));
 }
 
-/***************************************************************************//**
- * Set device name in the GATT database. A unique name is generated using
- * the two last bytes from the Bluetooth address of this device. Name is also
- * displayed on the LCD.
- *
- * @param[in] dev_addr  Pointer to Bluetooth address.
- ******************************************************************************/
+/*Function to set name for LPN device*/
 void set_device_name(bd_addr *dev_addr)
 {
 	char dev_name[10];
@@ -200,148 +175,14 @@ void set_device_name(bd_addr *dev_addr)
 	BTSTACK_CHECK_RESPONSE(gecko_cmd_gatt_server_write_attribute_value(gattdb_device_name, 0, strlen(dev_name), (uint8_t*)dev_addr));
 }
 
-/*******************************************************************************
- * This function is a handler for Switch generic on/off change event.
- *
- * @param[in] model_id       Server model ID.
- * @param[in] element_index  Server model element index.
- * @param[in] current        Pointer to current state structure.
- * @param[in] target         Pointer to target state structure.
- * @param[in] remaining_ms   Time (in milliseconds) remaining before transition
- *                           from current state to target state is complete.
- ******************************************************************************/
-static void switch_onoff_change(uint16_t model_id,
-                         uint16_t element_index,
-                         const struct mesh_generic_state *current,
-                         const struct mesh_generic_state *target,
-                         uint32_t remaining_ms)
-{
-	if (current->on_off.on != switch_state_obj.onoff_current)
-	{
-		LOG_INFO("\n Switch On-Off state changed %u to %u\n", switch_state_obj.onoff_current, current->on_off.on);
-		switch_state_obj.onoff_current = current->on_off.on;
-	}
-	else
-	{
-		LOG_INFO("\nDummy onoff change - same state as before\n");
-	}
-}
-
-/***************************************************************************//**
- * Update Switch generic on/off state and publish model state to the network.
- *
- * @param[in] element_index  Server model element index.
- * @param[in] remaining_ms   The remaining time in milliseconds.
- *
- * @return Status of the update and publish operation.
- *         Returns bg_err_success (0) if succeed, non-zero otherwise.
- ******************************************************************************/
-static errorcode_t switch_onoff_publish(uint16_t element_index,
-                                            uint32_t remaining_ms)
-{
-  errorcode_t ret;
-  struct mesh_generic_state current, target;
-
-	current.kind = mesh_generic_state_on_off;
-	current.on_off.on = switch_state_obj.onoff_current;
-
-	target.kind = mesh_generic_state_on_off;
-	target.on_off.on = switch_state_obj.onoff_target;
-
-	ret = mesh_lib_generic_server_update(MESH_GENERIC_ON_OFF_SERVER_MODEL_ID,
-		                                        element_index,
-		                                        &current,
-		                                        &target,
-		                                        remaining_ms);
-
-  if (ret == bg_err_success) {
-    ret = mesh_lib_generic_server_publish(MESH_GENERIC_ON_OFF_SERVER_MODEL_ID,
-                                        element_index,
-                                        mesh_generic_state_on_off);
-  }
-
-  return ret;
-}
-
-/*******************************************************************************
- * This function process the requests for the Switch generic on/off model.
- *
- * @param[in] model_id       Server model ID.
- * @param[in] element_index  Server model element index.
- * @param[in] client_addr    Address of the client model which sent the message.
- * @param[in] server_addr    Address the message was sent to.
- * @param[in] appkey_index   The application key index used in encrypting the request.
- * @param[in] request        Pointer to the request structure.
- * @param[in] transition_ms  Requested transition time (in milliseconds).
- * @param[in] delay_ms       Delay time (in milliseconds).
- * @param[in] request_flags  Message flags. Bitmask of the following:
- *                           - Bit 0: Nonrelayed. If nonzero indicates
- *                                    a response to a nonrelayed request.
- *                           - Bit 1: Response required. If nonzero client
- *                                    expects a response from the server.
- ******************************************************************************/
-static void switch_onoff_request(uint16_t model_id,
-                          uint16_t element_index,
-                          uint16_t client_addr,
-                          uint16_t server_addr,
-                          uint16_t appkey_index,
-                          const struct mesh_generic_request *request,
-                          uint32_t transition_ms,
-                          uint16_t delay_ms,
-                          uint8_t request_flags)
-{
-	if (switch_state_obj.onoff_current == request->on_off)
-	{
-		LOG_INFO("\nRequest for current state received; no op\n");
-	}
-	else
-	{
-		if(request->on_off)
-			displayPrintf(DISPLAY_ROW_CLIENTADDR,"Button Pressed");
-		else
-			displayPrintf(DISPLAY_ROW_CLIENTADDR,"Button Released");
-
-		if (transition_ms == 0 && delay_ms == 0)
-		{
-			switch_state_obj.onoff_current = request->on_off;
-			switch_state_obj.onoff_target = request->on_off;
-		}
-	}
-
-	switch_onoff_publish(element_index, 0);
-}
-
-/***************************************************************************//**
- * Switch node initialization.
- * This is called at each boot if provisioning is already done.
- * Otherwise this function is called after provisioning is completed.
- ******************************************************************************/
+/*Initalize Node*/
 void switch_node_init(void)
 {
-	uint16_t element_index = 0;
-
 	if(DeviceIsOnOffPublisher())
 		mesh_lib_init(malloc, free, 8);
-
-	else
-	{
-		mesh_lib_init(malloc, free, 9);
-
-		mesh_lib_generic_server_register_handler(MESH_GENERIC_ON_OFF_SERVER_MODEL_ID,
-														   0,
-														   switch_onoff_request,
-														   switch_onoff_change,NULL);
-		switch_onoff_publish(element_index, 0);
-	}
-
 }
 
-/*******************************************************************************
- * Handling of stack events. Both Bluetooth LE and Bluetooth mesh events
- * are handled here.
- * @param[in] evt_id  Incoming event ID.
- * @param[in] evt     Pointer to incoming event.
- ******************************************************************************/
+/* Handling of stack events. Both Bluetooth LE and Bluetooth mesh events are handled here.*/
 void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
 {
   struct gecko_msg_system_get_bt_address_rsp_t *dev_addr;
@@ -354,6 +195,7 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
 
   switch (evt_id)
   {
+     /*Set device address and initalize mesh node  on boot*/
   	  case gecko_evt_system_boot_id:
   		  element_index_global = 01;
   		  address_global = 0;
@@ -383,7 +225,7 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
     			 gecko_cmd_mesh_node_init();
     		 }
 
-         break;
+    	 	 break;
 
         /*Software timer for factory reset 2sec*/
   	  	case gecko_evt_hardware_soft_timer_id:
@@ -404,8 +246,8 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
     		}
     		break;
 
-    /*Handle events for mesh node initialization*/
-  	  case gecko_evt_mesh_node_initialized_id:
+        /*Handle events for mesh node initialization*/
+  	    case gecko_evt_mesh_node_initialized_id:
 
   		  if (pData->provisioned && DeviceIsOnOffPublisher())
   		  {
@@ -418,28 +260,15 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
   			  display_flash_data();
   		  }
 
-  	       else if(pData->provisioned && DeviceIsOnOffSubscriber())
-  	       {
-  	       	  address_global= pData->address;
-  	       	  element_index_global = 0;
-  	       	  displayPrintf(DISPLAY_ROW_ACTION, "Provisioned");
-  	       	  gecko_cmd_mesh_generic_server_init();
-  	          LPN_Init();
-  	       	  switch_node_init();
+  		  else if(!evt->data.evt_mesh_node_initialized.provisioned)
+  	      {
+  	          gecko_cmd_mesh_node_start_unprov_beaconing(0x3);
   	          display_flash_data();
+  	      }
 
-  	      	}
+  	      	  break;
 
-
-  	         else if(!evt->data.evt_mesh_node_initialized.provisioned)
-  	         {
-  	          	gecko_cmd_mesh_node_start_unprov_beaconing(0x3);   // enable ADV and GATT provisioning bearer
-  	            display_flash_data();
-  	         }
-
-  	         break;
-
-
+  	    /*Event occurs when mesh node provisioning is started*/
         case gecko_evt_mesh_node_provisioning_started_id:
         	LOG_INFO("\nProvisioning\n");
         	displayPrintf(DISPLAY_ROW_ACTION, "Provisioning");
@@ -450,10 +279,6 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
         	element_index_global = 0;
        		if(DeviceIsOnOffPublisher())
    				gecko_cmd_mesh_generic_client_init();
-
-       		else
- 				gecko_cmd_mesh_generic_server_init();
-
        		switch_node_init();
        		LPN_Init();
         	displayPrintf(DISPLAY_ROW_ACTION, "Provisioned");
@@ -463,28 +288,15 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
         case gecko_evt_mesh_node_provisioning_failed_id:
         	LOG_INFO("\nFailed Provisioning with error  %x\n", evt->data.evt_mesh_node_provisioning_failed.result);
        		displayPrintf(DISPLAY_ROW_ACTION, "Provisioning Fail");
-   			break;
+       		break;
 
-        case gecko_evt_mesh_generic_server_client_request_id:
-        	if(DeviceUsesServerModel())
-        	{
-        		mesh_lib_generic_server_event_handler(evt);
-        	}
-   			break;
-
-        case gecko_evt_mesh_generic_server_state_changed_id:
-        	if(DeviceUsesServerModel())
-        	{
-        		mesh_lib_generic_server_event_handler(evt);
-        	}
-        break;
 
         /*connection opened*/
         case gecko_evt_le_connection_opened_id:
         	BTSTACK_CHECK_RESPONSE(gecko_cmd_mesh_lpn_deinit());
         	LOG_INFO("\nConnection Opened\n");
         	displayPrintf(DISPLAY_ROW_CONNECTION, "Connected");
-        break;
+        	break;
 
         /*connection closed*/
         case gecko_evt_le_connection_closed_id:
@@ -499,23 +311,26 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
           }
           break;
 
-         /*mesh node reset*/
+        /*mesh node reset*/
         case gecko_evt_mesh_node_reset_id:
         	LOG_INFO("\nReset\n");
         	initiate_factory_reset();
-        break;
+        	break;
 
+        /*Event occurs when friendship is established*/
         case gecko_evt_mesh_lpn_friendship_established_id:
         	displayPrintf(DISPLAY_ROW_BTADDR+1, "Friend Connected");
         	LOG_INFO("\nFriendship Established\n");
         	break;
 
+        /*Event occurs when friendship Failed*/
         case gecko_evt_mesh_lpn_friendship_failed_id:
        		displayPrintf(DISPLAY_ROW_BTADDR+1, "");
         	LOG_INFO("\nFailed to establish Friendship\n");
         	gecko_cmd_hardware_set_soft_timer(DELAY_2S, TIMER_ID_FRIEND_FIND, true);
         	break;
 
+        /*Event occurs when friendship is Terminated*/
         case gecko_evt_mesh_lpn_friendship_terminated_id:
         	displayPrintf(DISPLAY_ROW_BTADDR+1, "");
         	LOG_INFO("\nFriendship Terminated\n");
@@ -535,9 +350,6 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
         			period_expired = 0;
         			ADC_flag = 0;
         			fire_value_millivolts = get_adc_data();
-
-        			//LOG_INFO("\n Sensor data= %d",fire_value_millivolts);
-
         			if(fire_value_millivolts > 2000)
         			{
         				fire_value_millivolts = (fire_value_millivolts -2000)/5 ;
@@ -617,7 +429,7 @@ void handle_ecen5823_gecko_event(uint32_t evt_id, struct gecko_cmd_packet *evt)
         					txid++;
         				}
         			}
-        break;
+        	break;
 
         case gecko_evt_gatt_server_user_write_request_id:
           if (evt->data.evt_gatt_server_user_write_request.characteristic == gattdb_ota_control) {

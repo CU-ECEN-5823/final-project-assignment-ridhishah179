@@ -71,23 +71,24 @@ app.o: ../app.c \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\protocol\bluetooth\bt_mesh\inc\common/bg_gattdb_def.h \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\protocol\bluetooth\bt_mesh\inc/mesh_generic_model_capi_types.h \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\protocol\bluetooth\bt_mesh\inc/mesh_lib.h \
+ ../src/ble_mesh_device_type.h ../src/gecko_ble_errors.h ../src/log.h \
+ C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\protocol\bluetooth\ble_stack\inc\soc/coexistence-ble.h \
+ ../hal-config.h \
+ C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_emu.h \
+ C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_cmu.h \
+ C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_gpio.h \
+ C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_common.h \
  ../src/state_handler.h ../src/letimer.h \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_letimer.h \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_core.h \
- C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_common.h \
- ../src/log.h ../src/cmu.h \
- C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_cmu.h \
- C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_gpio.h \
+ ../src/cmu.h \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emdrv\sleep\inc/sleep.h \
- C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_emu.h \
  ../src/display.h \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\middleware\glib\glib/glib.h \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\middleware\glib\glib/glib_color.h \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\middleware\glib/dmd/dmd.h \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\middleware\glib/em_types.h \
- ../src/ble_mesh_device_type.h ../src/gecko_ble_errors.h \
- C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\protocol\bluetooth\ble_stack\inc\soc/coexistence-ble.h \
- ../hal-config.h ../app.h ../src/adc.h \
+ ../app.h ../src/adc.h \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_adc.h \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_chip.h \
  C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_system.h \
@@ -237,6 +238,24 @@ C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\p
 
 C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\protocol\bluetooth\bt_mesh\inc/mesh_lib.h:
 
+../src/ble_mesh_device_type.h:
+
+../src/gecko_ble_errors.h:
+
+../src/log.h:
+
+C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\protocol\bluetooth\ble_stack\inc\soc/coexistence-ble.h:
+
+../hal-config.h:
+
+C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_emu.h:
+
+C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_cmu.h:
+
+C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_gpio.h:
+
+C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_common.h:
+
 ../src/state_handler.h:
 
 ../src/letimer.h:
@@ -245,19 +264,9 @@ C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\p
 
 C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_core.h:
 
-C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_common.h:
-
-../src/log.h:
-
 ../src/cmu.h:
 
-C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_cmu.h:
-
-C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_gpio.h:
-
 C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emdrv\sleep\inc/sleep.h:
-
-C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emlib\inc/em_emu.h:
 
 ../src/display.h:
 
@@ -268,14 +277,6 @@ C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\p
 C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\middleware\glib/dmd/dmd.h:
 
 C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\middleware\glib/em_types.h:
-
-../src/ble_mesh_device_type.h:
-
-../src/gecko_ble_errors.h:
-
-C:\Users\Ridhi\ Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\protocol\bluetooth\ble_stack\inc\soc/coexistence-ble.h:
-
-../hal-config.h:
 
 ../app.h:
 

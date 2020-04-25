@@ -8132,9 +8132,9 @@ LOAD c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/
                 0x0000b9e0       0x38 ./app.o
  .text.gecko_cmd_mesh_lpn_deinit
                 0x0000ba18       0x38 ./app.o
- .text.gecko_cmd_gatt_server_write_attribute_value.constprop.7
+ .text.gecko_cmd_gatt_server_write_attribute_value.constprop.5
                 0x0000ba50       0x68 ./app.o
- .text.gecko_cmd_hardware_set_soft_timer.constprop.8
+ .text.gecko_cmd_hardware_set_soft_timer.constprop.6
                 0x0000bab8       0x48 ./app.o
  .text.gecko_bgapi_classes_init_client_lpn
                 0x0000bb00       0x3a ./app.o
@@ -15443,19 +15443,19 @@ LOAD c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/
  *(.rodata*)
  .rodata.LPN_Init.str1.1
                 0x0004848c       0xb1 ./app.o
- .rodata.__func__.20176
-                0x0004853d       0x14 ./app.o
- .rodata.__func__.20182
-                0x00048551       0x15 ./app.o
  .rodata.__func__.20186
+                0x0004853d       0x14 ./app.o
+ .rodata.__func__.20192
+                0x00048551       0x15 ./app.o
+ .rodata.__func__.20196
                 0x00048566       0x13 ./app.o
- .rodata.__func__.20191
+ .rodata.__func__.20201
                 0x00048579        0x9 ./app.o
- .rodata.__func__.20195
+ .rodata.__func__.20205
                 0x00048582       0x17 ./app.o
- .rodata.__func__.20200
+ .rodata.__func__.20210
                 0x00048599       0x10 ./app.o
- .rodata.__func__.20243
+ .rodata.__func__.20225
                 0x000485a9       0x1c ./app.o
  .rodata.display_flash_data.str1.1
                 0x000485c5       0x2c ./app.o
@@ -16293,7 +16293,7 @@ LOAD c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/
  .bss           0x200013f4       0x1c c:/siliconlabs/simplicitystudio/v4/developer/toolchains/gnu_arm/7.2_2017q4/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/softfp/crtbegin.o
  .bss.boot_to_dfu
                 0x20001410        0x1 ./app.o
- .bss.txid.20265
+ .bss.txid.20245
                 0x20001411        0x1 ./app.o
  .bss.bg_gattdb_data_attribute_field_2_data
                 0x20001412        0x4 ./gatt_db.o
@@ -17943,123 +17943,123 @@ OUTPUT(course-project-ridhishah179.axf elf32-littlearm)
  .comment       0x0000007e       0x7f C:\Users\Ridhi Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emdrv\nvm3\lib\libnvm3_CM4_gcc.a(nvm3_utils.o)
  .comment       0x0000007e       0x7f C:\Users\Ridhi Shah\SimplicityStudio\v4_workspace\course-project-ridhishah179\platform\emdrv\nvm3\lib\libnvm3_CM4_gcc.a(nvm3_page.o)
 
-.debug_info     0x00000000    0x77c2a
+.debug_info     0x00000000    0x77a85
  .debug_info    0x00000000      0x2b7 ./platform/Device/SiliconLabs/EFR32BG13P/Source/GCC/startup_efr32bg13p.o
- .debug_info    0x000002b7    0x13d89 ./app.o
- .debug_info    0x00014040      0x295 ./dcd.o
- .debug_info    0x000142d5      0x665 ./gatt_db.o
- .debug_info    0x0001493a      0x259 ./init_app.o
- .debug_info    0x00014b93      0x383 ./init_board.o
- .debug_info    0x00014f16     0x132c ./init_mcu.o
- .debug_info    0x00016242      0xcd3 ./lcd_driver.o
- .debug_info    0x00016f15    0x1182f ./main.o
- .debug_info    0x00028744      0xc22 ./pti.o
- .debug_info    0x00029366      0xe20 ./hardware/kit/common/drivers/display.o
- .debug_info    0x0002a186     0x1395 ./hardware/kit/common/drivers/displayls013b7dh03.o
- .debug_info    0x0002b51b     0x1922 ./hardware/kit/common/drivers/displaypalemlib.o
- .debug_info    0x0002ce3d     0x46fe ./hardware/kit/common/drivers/mx25flash_spi.o
- .debug_info    0x0003153b      0xea8 ./hardware/kit/common/drivers/retargetio.o
- .debug_info    0x000323e3     0x18c1 ./hardware/kit/common/drivers/retargetserial.o
- .debug_info    0x00033ca4     0x134d ./hardware/kit/common/drivers/udelay.o
- .debug_info    0x00034ff1      0x99e ./platform/Device/SiliconLabs/EFR32BG13P/Source/system_efr32bg13p.o
- .debug_info    0x0003598f      0xa08 ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
- .debug_info    0x00036397     0x10dc ./platform/emdrv/nvm3/src/nvm3_default.o
- .debug_info    0x00037473     0x1b3e ./platform/emdrv/nvm3/src/nvm3_hal_flash.o
- .debug_info    0x00038fb1     0x111a ./platform/emdrv/nvm3/src/nvm3_lock.o
- .debug_info    0x0003a0cb     0x10d5 ./platform/emdrv/sleep/src/sleep.o
- .debug_info    0x0003b1a0     0x1e3f ./platform/emlib/src/em_adc.o
- .debug_info    0x0003cfdf     0x3404 ./platform/emlib/src/em_cmu.o
- .debug_info    0x000403e3      0xd93 ./platform/emlib/src/em_core.o
- .debug_info    0x00041176     0x37e0 ./platform/emlib/src/em_crypto.o
- .debug_info    0x00044956     0x2f13 ./platform/emlib/src/em_emu.o
- .debug_info    0x00047869      0xf84 ./platform/emlib/src/em_gpio.o
- .debug_info    0x000487ed      0x7b5 ./platform/emlib/src/em_letimer.o
- .debug_info    0x00048fa2      0x9ef ./platform/emlib/src/em_msc.o
- .debug_info    0x00049991      0x3ad ./platform/emlib/src/em_rmu.o
- .debug_info    0x00049d3e      0xc55 ./platform/emlib/src/em_rtcc.o
- .debug_info    0x0004a993      0x2e0 ./platform/emlib/src/em_system.o
- .debug_info    0x0004ac73     0x11a5 ./platform/emlib/src/em_usart.o
- .debug_info    0x0004be18     0x1554 ./platform/middleware/glib/dmd/display/dmd_display.o
- .debug_info    0x0004d36c     0x1405 ./platform/middleware/glib/glib/glib.o
- .debug_info    0x0004e771      0xabf ./platform/middleware/glib/glib/glib_font_narrow_6x8.o
- .debug_info    0x0004f230      0xabf ./platform/middleware/glib/glib/glib_font_normal_8x8.o
- .debug_info    0x0004fcef      0xeb1 ./platform/middleware/glib/glib/glib_rectangle.o
- .debug_info    0x00050ba0      0xfa4 ./platform/middleware/glib/glib/glib_string.o
- .debug_info    0x00051b44     0x1bad ./platform/radio/rail_lib/plugin/coexistence/common/coexistence.o
- .debug_info    0x000536f1     0x1575 ./platform/radio/rail_lib/plugin/coexistence/hal/efr32/coexistence-hal.o
- .debug_info    0x00054c66     0x1a7e ./platform/service/sleeptimer/src/sl_sleeptimer.o
- .debug_info    0x000566e4     0x10bb ./platform/service/sleeptimer/src/sl_sleeptimer_hal_rtcc.o
- .debug_info    0x0005779f     0x1c54 ./protocol/bluetooth/ble_stack/src/soc/coexistence-ble.o
- .debug_info    0x000593f3      0xca6 ./protocol/bluetooth/ble_stack/src/soc/coexistence_counters-ble.o
- .debug_info    0x0005a099      0x207 ./protocol/bluetooth/bt_mesh/src/bg_application_properties.o
- .debug_info    0x0005a2a0    0x1309c ./protocol/bluetooth/bt_mesh/src/mesh_lib.o
- .debug_info    0x0006d33c     0x2286 ./protocol/bluetooth/bt_mesh/src/mesh_serdeser.o
- .debug_info    0x0006f5c2     0x221a ./src/adc.o
- .debug_info    0x000717dc      0x3f6 ./src/cmu.o
- .debug_info    0x00071bd2     0x12e1 ./src/display.o
- .debug_info    0x00072eb3     0x124d ./src/gecko_ble_errors.o
- .debug_info    0x00074100     0x1629 ./src/gpio.o
- .debug_info    0x00075729     0x19ec ./src/letimer.o
- .debug_info    0x00077115      0xb15 ./src/log.o
+ .debug_info    0x000002b7    0x13be4 ./app.o
+ .debug_info    0x00013e9b      0x295 ./dcd.o
+ .debug_info    0x00014130      0x665 ./gatt_db.o
+ .debug_info    0x00014795      0x259 ./init_app.o
+ .debug_info    0x000149ee      0x383 ./init_board.o
+ .debug_info    0x00014d71     0x132c ./init_mcu.o
+ .debug_info    0x0001609d      0xcd3 ./lcd_driver.o
+ .debug_info    0x00016d70    0x1182f ./main.o
+ .debug_info    0x0002859f      0xc22 ./pti.o
+ .debug_info    0x000291c1      0xe20 ./hardware/kit/common/drivers/display.o
+ .debug_info    0x00029fe1     0x1395 ./hardware/kit/common/drivers/displayls013b7dh03.o
+ .debug_info    0x0002b376     0x1922 ./hardware/kit/common/drivers/displaypalemlib.o
+ .debug_info    0x0002cc98     0x46fe ./hardware/kit/common/drivers/mx25flash_spi.o
+ .debug_info    0x00031396      0xea8 ./hardware/kit/common/drivers/retargetio.o
+ .debug_info    0x0003223e     0x18c1 ./hardware/kit/common/drivers/retargetserial.o
+ .debug_info    0x00033aff     0x134d ./hardware/kit/common/drivers/udelay.o
+ .debug_info    0x00034e4c      0x99e ./platform/Device/SiliconLabs/EFR32BG13P/Source/system_efr32bg13p.o
+ .debug_info    0x000357ea      0xa08 ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
+ .debug_info    0x000361f2     0x10dc ./platform/emdrv/nvm3/src/nvm3_default.o
+ .debug_info    0x000372ce     0x1b3e ./platform/emdrv/nvm3/src/nvm3_hal_flash.o
+ .debug_info    0x00038e0c     0x111a ./platform/emdrv/nvm3/src/nvm3_lock.o
+ .debug_info    0x00039f26     0x10d5 ./platform/emdrv/sleep/src/sleep.o
+ .debug_info    0x0003affb     0x1e3f ./platform/emlib/src/em_adc.o
+ .debug_info    0x0003ce3a     0x3404 ./platform/emlib/src/em_cmu.o
+ .debug_info    0x0004023e      0xd93 ./platform/emlib/src/em_core.o
+ .debug_info    0x00040fd1     0x37e0 ./platform/emlib/src/em_crypto.o
+ .debug_info    0x000447b1     0x2f13 ./platform/emlib/src/em_emu.o
+ .debug_info    0x000476c4      0xf84 ./platform/emlib/src/em_gpio.o
+ .debug_info    0x00048648      0x7b5 ./platform/emlib/src/em_letimer.o
+ .debug_info    0x00048dfd      0x9ef ./platform/emlib/src/em_msc.o
+ .debug_info    0x000497ec      0x3ad ./platform/emlib/src/em_rmu.o
+ .debug_info    0x00049b99      0xc55 ./platform/emlib/src/em_rtcc.o
+ .debug_info    0x0004a7ee      0x2e0 ./platform/emlib/src/em_system.o
+ .debug_info    0x0004aace     0x11a5 ./platform/emlib/src/em_usart.o
+ .debug_info    0x0004bc73     0x1554 ./platform/middleware/glib/dmd/display/dmd_display.o
+ .debug_info    0x0004d1c7     0x1405 ./platform/middleware/glib/glib/glib.o
+ .debug_info    0x0004e5cc      0xabf ./platform/middleware/glib/glib/glib_font_narrow_6x8.o
+ .debug_info    0x0004f08b      0xabf ./platform/middleware/glib/glib/glib_font_normal_8x8.o
+ .debug_info    0x0004fb4a      0xeb1 ./platform/middleware/glib/glib/glib_rectangle.o
+ .debug_info    0x000509fb      0xfa4 ./platform/middleware/glib/glib/glib_string.o
+ .debug_info    0x0005199f     0x1bad ./platform/radio/rail_lib/plugin/coexistence/common/coexistence.o
+ .debug_info    0x0005354c     0x1575 ./platform/radio/rail_lib/plugin/coexistence/hal/efr32/coexistence-hal.o
+ .debug_info    0x00054ac1     0x1a7e ./platform/service/sleeptimer/src/sl_sleeptimer.o
+ .debug_info    0x0005653f     0x10bb ./platform/service/sleeptimer/src/sl_sleeptimer_hal_rtcc.o
+ .debug_info    0x000575fa     0x1c54 ./protocol/bluetooth/ble_stack/src/soc/coexistence-ble.o
+ .debug_info    0x0005924e      0xca6 ./protocol/bluetooth/ble_stack/src/soc/coexistence_counters-ble.o
+ .debug_info    0x00059ef4      0x207 ./protocol/bluetooth/bt_mesh/src/bg_application_properties.o
+ .debug_info    0x0005a0fb    0x1309c ./protocol/bluetooth/bt_mesh/src/mesh_lib.o
+ .debug_info    0x0006d197     0x2286 ./protocol/bluetooth/bt_mesh/src/mesh_serdeser.o
+ .debug_info    0x0006f41d     0x221a ./src/adc.o
+ .debug_info    0x00071637      0x3f6 ./src/cmu.o
+ .debug_info    0x00071a2d     0x12e1 ./src/display.o
+ .debug_info    0x00072d0e     0x124d ./src/gecko_ble_errors.o
+ .debug_info    0x00073f5b     0x1629 ./src/gpio.o
+ .debug_info    0x00075584     0x19ec ./src/letimer.o
+ .debug_info    0x00076f70      0xb15 ./src/log.o
 
-.debug_abbrev   0x00000000     0xa8f8
+.debug_abbrev   0x00000000     0xa882
  .debug_abbrev  0x00000000      0x148 ./platform/Device/SiliconLabs/EFR32BG13P/Source/GCC/startup_efr32bg13p.o
- .debug_abbrev  0x00000148      0x580 ./app.o
- .debug_abbrev  0x000006c8       0x82 ./dcd.o
- .debug_abbrev  0x0000074a       0xdb ./gatt_db.o
- .debug_abbrev  0x00000825      0x13f ./init_app.o
- .debug_abbrev  0x00000964      0x144 ./init_board.o
- .debug_abbrev  0x00000aa8      0x20c ./init_mcu.o
- .debug_abbrev  0x00000cb4      0x2d9 ./lcd_driver.o
- .debug_abbrev  0x00000f8d      0x299 ./main.o
- .debug_abbrev  0x00001226      0x22f ./pti.o
- .debug_abbrev  0x00001455      0x24a ./hardware/kit/common/drivers/display.o
- .debug_abbrev  0x0000169f      0x36e ./hardware/kit/common/drivers/displayls013b7dh03.o
- .debug_abbrev  0x00001a0d      0x391 ./hardware/kit/common/drivers/displaypalemlib.o
- .debug_abbrev  0x00001d9e      0x45c ./hardware/kit/common/drivers/mx25flash_spi.o
- .debug_abbrev  0x000021fa      0x271 ./hardware/kit/common/drivers/retargetio.o
- .debug_abbrev  0x0000246b      0x397 ./hardware/kit/common/drivers/retargetserial.o
- .debug_abbrev  0x00002802      0x2fd ./hardware/kit/common/drivers/udelay.o
- .debug_abbrev  0x00002aff      0x203 ./platform/Device/SiliconLabs/EFR32BG13P/Source/system_efr32bg13p.o
- .debug_abbrev  0x00002d02      0x2cf ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
- .debug_abbrev  0x00002fd1      0x1c3 ./platform/emdrv/nvm3/src/nvm3_default.o
- .debug_abbrev  0x00003194      0x3c3 ./platform/emdrv/nvm3/src/nvm3_hal_flash.o
- .debug_abbrev  0x00003557      0x201 ./platform/emdrv/nvm3/src/nvm3_lock.o
- .debug_abbrev  0x00003758      0x3d3 ./platform/emdrv/sleep/src/sleep.o
- .debug_abbrev  0x00003b2b      0x3b8 ./platform/emlib/src/em_adc.o
- .debug_abbrev  0x00003ee3      0x540 ./platform/emlib/src/em_cmu.o
- .debug_abbrev  0x00004423      0x358 ./platform/emlib/src/em_core.o
- .debug_abbrev  0x0000477b      0x49f ./platform/emlib/src/em_crypto.o
- .debug_abbrev  0x00004c1a      0x558 ./platform/emlib/src/em_emu.o
- .debug_abbrev  0x00005172      0x347 ./platform/emlib/src/em_gpio.o
- .debug_abbrev  0x000054b9      0x2bb ./platform/emlib/src/em_letimer.o
- .debug_abbrev  0x00005774      0x29c ./platform/emlib/src/em_msc.o
- .debug_abbrev  0x00005a10      0x236 ./platform/emlib/src/em_rmu.o
- .debug_abbrev  0x00005c46      0x25b ./platform/emlib/src/em_rtcc.o
- .debug_abbrev  0x00005ea1      0x15f ./platform/emlib/src/em_system.o
- .debug_abbrev  0x00006000      0x2f3 ./platform/emlib/src/em_usart.o
- .debug_abbrev  0x000062f3      0x3a8 ./platform/middleware/glib/dmd/display/dmd_display.o
- .debug_abbrev  0x0000669b      0x381 ./platform/middleware/glib/glib/glib.o
- .debug_abbrev  0x00006a1c      0x19d ./platform/middleware/glib/glib/glib_font_narrow_6x8.o
- .debug_abbrev  0x00006bb9      0x19d ./platform/middleware/glib/glib/glib_font_normal_8x8.o
- .debug_abbrev  0x00006d56      0x272 ./platform/middleware/glib/glib/glib_rectangle.o
- .debug_abbrev  0x00006fc8      0x2b6 ./platform/middleware/glib/glib/glib_string.o
- .debug_abbrev  0x0000727e      0x580 ./platform/radio/rail_lib/plugin/coexistence/common/coexistence.o
- .debug_abbrev  0x000077fe      0x4a3 ./platform/radio/rail_lib/plugin/coexistence/hal/efr32/coexistence-hal.o
- .debug_abbrev  0x00007ca1      0x487 ./platform/service/sleeptimer/src/sl_sleeptimer.o
- .debug_abbrev  0x00008128      0x3f1 ./platform/service/sleeptimer/src/sl_sleeptimer_hal_rtcc.o
- .debug_abbrev  0x00008519      0x53e ./protocol/bluetooth/ble_stack/src/soc/coexistence-ble.o
- .debug_abbrev  0x00008a57      0x2a9 ./protocol/bluetooth/ble_stack/src/soc/coexistence_counters-ble.o
- .debug_abbrev  0x00008d00       0xa0 ./protocol/bluetooth/bt_mesh/src/bg_application_properties.o
- .debug_abbrev  0x00008da0      0x41e ./protocol/bluetooth/bt_mesh/src/mesh_lib.o
- .debug_abbrev  0x000091be      0x327 ./protocol/bluetooth/bt_mesh/src/mesh_serdeser.o
- .debug_abbrev  0x000094e5      0x350 ./src/adc.o
- .debug_abbrev  0x00009835      0x125 ./src/cmu.o
- .debug_abbrev  0x0000995a      0x34b ./src/display.o
- .debug_abbrev  0x00009ca5      0x208 ./src/gecko_ble_errors.o
- .debug_abbrev  0x00009ead      0x403 ./src/gpio.o
- .debug_abbrev  0x0000a2b0      0x413 ./src/letimer.o
- .debug_abbrev  0x0000a6c3      0x235 ./src/log.o
+ .debug_abbrev  0x00000148      0x50a ./app.o
+ .debug_abbrev  0x00000652       0x82 ./dcd.o
+ .debug_abbrev  0x000006d4       0xdb ./gatt_db.o
+ .debug_abbrev  0x000007af      0x13f ./init_app.o
+ .debug_abbrev  0x000008ee      0x144 ./init_board.o
+ .debug_abbrev  0x00000a32      0x20c ./init_mcu.o
+ .debug_abbrev  0x00000c3e      0x2d9 ./lcd_driver.o
+ .debug_abbrev  0x00000f17      0x299 ./main.o
+ .debug_abbrev  0x000011b0      0x22f ./pti.o
+ .debug_abbrev  0x000013df      0x24a ./hardware/kit/common/drivers/display.o
+ .debug_abbrev  0x00001629      0x36e ./hardware/kit/common/drivers/displayls013b7dh03.o
+ .debug_abbrev  0x00001997      0x391 ./hardware/kit/common/drivers/displaypalemlib.o
+ .debug_abbrev  0x00001d28      0x45c ./hardware/kit/common/drivers/mx25flash_spi.o
+ .debug_abbrev  0x00002184      0x271 ./hardware/kit/common/drivers/retargetio.o
+ .debug_abbrev  0x000023f5      0x397 ./hardware/kit/common/drivers/retargetserial.o
+ .debug_abbrev  0x0000278c      0x2fd ./hardware/kit/common/drivers/udelay.o
+ .debug_abbrev  0x00002a89      0x203 ./platform/Device/SiliconLabs/EFR32BG13P/Source/system_efr32bg13p.o
+ .debug_abbrev  0x00002c8c      0x2cf ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
+ .debug_abbrev  0x00002f5b      0x1c3 ./platform/emdrv/nvm3/src/nvm3_default.o
+ .debug_abbrev  0x0000311e      0x3c3 ./platform/emdrv/nvm3/src/nvm3_hal_flash.o
+ .debug_abbrev  0x000034e1      0x201 ./platform/emdrv/nvm3/src/nvm3_lock.o
+ .debug_abbrev  0x000036e2      0x3d3 ./platform/emdrv/sleep/src/sleep.o
+ .debug_abbrev  0x00003ab5      0x3b8 ./platform/emlib/src/em_adc.o
+ .debug_abbrev  0x00003e6d      0x540 ./platform/emlib/src/em_cmu.o
+ .debug_abbrev  0x000043ad      0x358 ./platform/emlib/src/em_core.o
+ .debug_abbrev  0x00004705      0x49f ./platform/emlib/src/em_crypto.o
+ .debug_abbrev  0x00004ba4      0x558 ./platform/emlib/src/em_emu.o
+ .debug_abbrev  0x000050fc      0x347 ./platform/emlib/src/em_gpio.o
+ .debug_abbrev  0x00005443      0x2bb ./platform/emlib/src/em_letimer.o
+ .debug_abbrev  0x000056fe      0x29c ./platform/emlib/src/em_msc.o
+ .debug_abbrev  0x0000599a      0x236 ./platform/emlib/src/em_rmu.o
+ .debug_abbrev  0x00005bd0      0x25b ./platform/emlib/src/em_rtcc.o
+ .debug_abbrev  0x00005e2b      0x15f ./platform/emlib/src/em_system.o
+ .debug_abbrev  0x00005f8a      0x2f3 ./platform/emlib/src/em_usart.o
+ .debug_abbrev  0x0000627d      0x3a8 ./platform/middleware/glib/dmd/display/dmd_display.o
+ .debug_abbrev  0x00006625      0x381 ./platform/middleware/glib/glib/glib.o
+ .debug_abbrev  0x000069a6      0x19d ./platform/middleware/glib/glib/glib_font_narrow_6x8.o
+ .debug_abbrev  0x00006b43      0x19d ./platform/middleware/glib/glib/glib_font_normal_8x8.o
+ .debug_abbrev  0x00006ce0      0x272 ./platform/middleware/glib/glib/glib_rectangle.o
+ .debug_abbrev  0x00006f52      0x2b6 ./platform/middleware/glib/glib/glib_string.o
+ .debug_abbrev  0x00007208      0x580 ./platform/radio/rail_lib/plugin/coexistence/common/coexistence.o
+ .debug_abbrev  0x00007788      0x4a3 ./platform/radio/rail_lib/plugin/coexistence/hal/efr32/coexistence-hal.o
+ .debug_abbrev  0x00007c2b      0x487 ./platform/service/sleeptimer/src/sl_sleeptimer.o
+ .debug_abbrev  0x000080b2      0x3f1 ./platform/service/sleeptimer/src/sl_sleeptimer_hal_rtcc.o
+ .debug_abbrev  0x000084a3      0x53e ./protocol/bluetooth/ble_stack/src/soc/coexistence-ble.o
+ .debug_abbrev  0x000089e1      0x2a9 ./protocol/bluetooth/ble_stack/src/soc/coexistence_counters-ble.o
+ .debug_abbrev  0x00008c8a       0xa0 ./protocol/bluetooth/bt_mesh/src/bg_application_properties.o
+ .debug_abbrev  0x00008d2a      0x41e ./protocol/bluetooth/bt_mesh/src/mesh_lib.o
+ .debug_abbrev  0x00009148      0x327 ./protocol/bluetooth/bt_mesh/src/mesh_serdeser.o
+ .debug_abbrev  0x0000946f      0x350 ./src/adc.o
+ .debug_abbrev  0x000097bf      0x125 ./src/cmu.o
+ .debug_abbrev  0x000098e4      0x34b ./src/display.o
+ .debug_abbrev  0x00009c2f      0x208 ./src/gecko_ble_errors.o
+ .debug_abbrev  0x00009e37      0x403 ./src/gpio.o
+ .debug_abbrev  0x0000a23a      0x413 ./src/letimer.o
+ .debug_abbrev  0x0000a64d      0x235 ./src/log.o
 
 .debug_loc      0x00000000    0x1e103
  .debug_loc     0x00000000       0x69 ./platform/Device/SiliconLabs/EFR32BG13P/Source/GCC/startup_efr32bg13p.o
@@ -18283,179 +18283,179 @@ OUTPUT(course-project-ridhishah179.axf elf32-littlearm)
  .debug_ranges  0x00002930       0x80 ./src/letimer.o
  .debug_ranges  0x000029b0       0x20 ./src/log.o
 
-.debug_line     0x00000000    0x12d60
+.debug_line     0x00000000    0x12d59
  .debug_line    0x00000000      0x295 ./platform/Device/SiliconLabs/EFR32BG13P/Source/GCC/startup_efr32bg13p.o
- .debug_line    0x00000295      0xa6c ./app.o
- .debug_line    0x00000d01      0x21f ./dcd.o
- .debug_line    0x00000f20      0x1a3 ./gatt_db.o
- .debug_line    0x000010c3      0x2c3 ./init_app.o
- .debug_line    0x00001386      0x32d ./init_board.o
- .debug_line    0x000016b3      0x387 ./init_mcu.o
- .debug_line    0x00001a3a      0x39e ./lcd_driver.o
- .debug_line    0x00001dd8      0x65c ./main.o
- .debug_line    0x00002434      0x459 ./pti.o
- .debug_line    0x0000288d      0x449 ./hardware/kit/common/drivers/display.o
- .debug_line    0x00002cd6      0x589 ./hardware/kit/common/drivers/displayls013b7dh03.o
- .debug_line    0x0000325f      0x5f8 ./hardware/kit/common/drivers/displaypalemlib.o
- .debug_line    0x00003857      0xd7c ./hardware/kit/common/drivers/mx25flash_spi.o
- .debug_line    0x000045d3      0x3ba ./hardware/kit/common/drivers/retargetio.o
- .debug_line    0x0000498d      0x537 ./hardware/kit/common/drivers/retargetserial.o
- .debug_line    0x00004ec4      0x433 ./hardware/kit/common/drivers/udelay.o
- .debug_line    0x000052f7      0x341 ./platform/Device/SiliconLabs/EFR32BG13P/Source/system_efr32bg13p.o
- .debug_line    0x00005638      0x46c ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
- .debug_line    0x00005aa4      0x3f3 ./platform/emdrv/nvm3/src/nvm3_default.o
- .debug_line    0x00005e97      0x5de ./platform/emdrv/nvm3/src/nvm3_hal_flash.o
- .debug_line    0x00006475      0x47c ./platform/emdrv/nvm3/src/nvm3_lock.o
- .debug_line    0x000068f1      0x4c5 ./platform/emdrv/sleep/src/sleep.o
- .debug_line    0x00006db6      0x535 ./platform/emlib/src/em_adc.o
- .debug_line    0x000072eb      0xd0c ./platform/emlib/src/em_cmu.o
- .debug_line    0x00007ff7      0x511 ./platform/emlib/src/em_core.o
- .debug_line    0x00008508      0xad8 ./platform/emlib/src/em_crypto.o
- .debug_line    0x00008fe0      0xa6c ./platform/emlib/src/em_emu.o
- .debug_line    0x00009a4c      0x445 ./platform/emlib/src/em_gpio.o
- .debug_line    0x00009e91      0x42e ./platform/emlib/src/em_letimer.o
- .debug_line    0x0000a2bf      0x44f ./platform/emlib/src/em_msc.o
- .debug_line    0x0000a70e      0x349 ./platform/emlib/src/em_rmu.o
- .debug_line    0x0000aa57      0x3e0 ./platform/emlib/src/em_rtcc.o
- .debug_line    0x0000ae37      0x2f9 ./platform/emlib/src/em_system.o
- .debug_line    0x0000b130      0x575 ./platform/emlib/src/em_usart.o
- .debug_line    0x0000b6a5      0x73e ./platform/middleware/glib/dmd/display/dmd_display.o
- .debug_line    0x0000bde3      0x535 ./platform/middleware/glib/glib/glib.o
- .debug_line    0x0000c318      0x1ed ./platform/middleware/glib/glib/glib_font_narrow_6x8.o
- .debug_line    0x0000c505      0x1ed ./platform/middleware/glib/glib/glib_font_normal_8x8.o
- .debug_line    0x0000c6f2      0x359 ./platform/middleware/glib/glib/glib_rectangle.o
- .debug_line    0x0000ca4b      0x3ea ./platform/middleware/glib/glib/glib_string.o
- .debug_line    0x0000ce35      0x7dc ./platform/radio/rail_lib/plugin/coexistence/common/coexistence.o
- .debug_line    0x0000d611      0x685 ./platform/radio/rail_lib/plugin/coexistence/hal/efr32/coexistence-hal.o
- .debug_line    0x0000dc96      0x79d ./platform/service/sleeptimer/src/sl_sleeptimer.o
- .debug_line    0x0000e433      0x4d7 ./platform/service/sleeptimer/src/sl_sleeptimer_hal_rtcc.o
- .debug_line    0x0000e90a      0x8c9 ./protocol/bluetooth/ble_stack/src/soc/coexistence-ble.o
- .debug_line    0x0000f1d3      0x4e6 ./protocol/bluetooth/ble_stack/src/soc/coexistence_counters-ble.o
- .debug_line    0x0000f6b9      0x1cf ./protocol/bluetooth/bt_mesh/src/bg_application_properties.o
- .debug_line    0x0000f888      0x80d ./protocol/bluetooth/bt_mesh/src/mesh_lib.o
- .debug_line    0x00010095      0x851 ./protocol/bluetooth/bt_mesh/src/mesh_serdeser.o
- .debug_line    0x000108e6      0x52f ./src/adc.o
- .debug_line    0x00010e15      0x2a9 ./src/cmu.o
- .debug_line    0x000110be      0x5e0 ./src/display.o
- .debug_line    0x0001169e      0x517 ./src/gecko_ble_errors.o
- .debug_line    0x00011bb5      0x707 ./src/gpio.o
- .debug_line    0x000122bc      0x6c7 ./src/letimer.o
- .debug_line    0x00012983      0x3dd ./src/log.o
+ .debug_line    0x00000295      0xa65 ./app.o
+ .debug_line    0x00000cfa      0x21f ./dcd.o
+ .debug_line    0x00000f19      0x1a3 ./gatt_db.o
+ .debug_line    0x000010bc      0x2c3 ./init_app.o
+ .debug_line    0x0000137f      0x32d ./init_board.o
+ .debug_line    0x000016ac      0x387 ./init_mcu.o
+ .debug_line    0x00001a33      0x39e ./lcd_driver.o
+ .debug_line    0x00001dd1      0x65c ./main.o
+ .debug_line    0x0000242d      0x459 ./pti.o
+ .debug_line    0x00002886      0x449 ./hardware/kit/common/drivers/display.o
+ .debug_line    0x00002ccf      0x589 ./hardware/kit/common/drivers/displayls013b7dh03.o
+ .debug_line    0x00003258      0x5f8 ./hardware/kit/common/drivers/displaypalemlib.o
+ .debug_line    0x00003850      0xd7c ./hardware/kit/common/drivers/mx25flash_spi.o
+ .debug_line    0x000045cc      0x3ba ./hardware/kit/common/drivers/retargetio.o
+ .debug_line    0x00004986      0x537 ./hardware/kit/common/drivers/retargetserial.o
+ .debug_line    0x00004ebd      0x433 ./hardware/kit/common/drivers/udelay.o
+ .debug_line    0x000052f0      0x341 ./platform/Device/SiliconLabs/EFR32BG13P/Source/system_efr32bg13p.o
+ .debug_line    0x00005631      0x46c ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
+ .debug_line    0x00005a9d      0x3f3 ./platform/emdrv/nvm3/src/nvm3_default.o
+ .debug_line    0x00005e90      0x5de ./platform/emdrv/nvm3/src/nvm3_hal_flash.o
+ .debug_line    0x0000646e      0x47c ./platform/emdrv/nvm3/src/nvm3_lock.o
+ .debug_line    0x000068ea      0x4c5 ./platform/emdrv/sleep/src/sleep.o
+ .debug_line    0x00006daf      0x535 ./platform/emlib/src/em_adc.o
+ .debug_line    0x000072e4      0xd0c ./platform/emlib/src/em_cmu.o
+ .debug_line    0x00007ff0      0x511 ./platform/emlib/src/em_core.o
+ .debug_line    0x00008501      0xad8 ./platform/emlib/src/em_crypto.o
+ .debug_line    0x00008fd9      0xa6c ./platform/emlib/src/em_emu.o
+ .debug_line    0x00009a45      0x445 ./platform/emlib/src/em_gpio.o
+ .debug_line    0x00009e8a      0x42e ./platform/emlib/src/em_letimer.o
+ .debug_line    0x0000a2b8      0x44f ./platform/emlib/src/em_msc.o
+ .debug_line    0x0000a707      0x349 ./platform/emlib/src/em_rmu.o
+ .debug_line    0x0000aa50      0x3e0 ./platform/emlib/src/em_rtcc.o
+ .debug_line    0x0000ae30      0x2f9 ./platform/emlib/src/em_system.o
+ .debug_line    0x0000b129      0x575 ./platform/emlib/src/em_usart.o
+ .debug_line    0x0000b69e      0x73e ./platform/middleware/glib/dmd/display/dmd_display.o
+ .debug_line    0x0000bddc      0x535 ./platform/middleware/glib/glib/glib.o
+ .debug_line    0x0000c311      0x1ed ./platform/middleware/glib/glib/glib_font_narrow_6x8.o
+ .debug_line    0x0000c4fe      0x1ed ./platform/middleware/glib/glib/glib_font_normal_8x8.o
+ .debug_line    0x0000c6eb      0x359 ./platform/middleware/glib/glib/glib_rectangle.o
+ .debug_line    0x0000ca44      0x3ea ./platform/middleware/glib/glib/glib_string.o
+ .debug_line    0x0000ce2e      0x7dc ./platform/radio/rail_lib/plugin/coexistence/common/coexistence.o
+ .debug_line    0x0000d60a      0x685 ./platform/radio/rail_lib/plugin/coexistence/hal/efr32/coexistence-hal.o
+ .debug_line    0x0000dc8f      0x79d ./platform/service/sleeptimer/src/sl_sleeptimer.o
+ .debug_line    0x0000e42c      0x4d7 ./platform/service/sleeptimer/src/sl_sleeptimer_hal_rtcc.o
+ .debug_line    0x0000e903      0x8c9 ./protocol/bluetooth/ble_stack/src/soc/coexistence-ble.o
+ .debug_line    0x0000f1cc      0x4e6 ./protocol/bluetooth/ble_stack/src/soc/coexistence_counters-ble.o
+ .debug_line    0x0000f6b2      0x1cf ./protocol/bluetooth/bt_mesh/src/bg_application_properties.o
+ .debug_line    0x0000f881      0x80d ./protocol/bluetooth/bt_mesh/src/mesh_lib.o
+ .debug_line    0x0001008e      0x851 ./protocol/bluetooth/bt_mesh/src/mesh_serdeser.o
+ .debug_line    0x000108df      0x52f ./src/adc.o
+ .debug_line    0x00010e0e      0x2a9 ./src/cmu.o
+ .debug_line    0x000110b7      0x5e0 ./src/display.o
+ .debug_line    0x00011697      0x517 ./src/gecko_ble_errors.o
+ .debug_line    0x00011bae      0x707 ./src/gpio.o
+ .debug_line    0x000122b5      0x6c7 ./src/letimer.o
+ .debug_line    0x0001297c      0x3dd ./src/log.o
 
-.debug_str      0x00000000    0x23fb1
+.debug_str      0x00000000    0x23f22
  .debug_str     0x00000000      0x358 ./platform/Device/SiliconLabs/EFR32BG13P/Source/GCC/startup_efr32bg13p.o
                                 0x3b7 (size before relaxing)
- .debug_str     0x00000358    0x1776a ./app.o
-                              0x181c6 (size before relaxing)
- .debug_str     0x00017ac2      0x243 ./dcd.o
+ .debug_str     0x00000358    0x17685 ./app.o
+                              0x180da (size before relaxing)
+ .debug_str     0x000179dd      0x243 ./dcd.o
                                 0x46b (size before relaxing)
- .debug_str     0x00017d05      0x51f ./gatt_db.o
+ .debug_str     0x00017c20      0x51f ./gatt_db.o
                                 0x915 (size before relaxing)
- .debug_str     0x00018224      0x1bd ./init_app.o
+ .debug_str     0x0001813f      0x1bd ./init_app.o
                                 0x457 (size before relaxing)
- .debug_str     0x000183e1      0x2c7 ./init_board.o
+ .debug_str     0x000182fc      0x2c7 ./init_board.o
                                 0x52f (size before relaxing)
- .debug_str     0x000186a8      0xca2 ./init_mcu.o
+ .debug_str     0x000185c3      0xca2 ./init_mcu.o
                                0x1278 (size before relaxing)
- .debug_str     0x0001934a       0x90 ./lcd_driver.o
+ .debug_str     0x00019265       0x90 ./lcd_driver.o
                                 0x6f6 (size before relaxing)
- .debug_str     0x000193da      0x360 ./main.o
+ .debug_str     0x000192f5      0x360 ./main.o
                               0x15843 (size before relaxing)
- .debug_str     0x0001973a      0x1cc ./pti.o
+ .debug_str     0x00019655      0x1cc ./pti.o
                                 0x875 (size before relaxing)
- .debug_str     0x00019906      0x2c9 ./hardware/kit/common/drivers/display.o
+ .debug_str     0x00019821      0x2c9 ./hardware/kit/common/drivers/display.o
                                 0x932 (size before relaxing)
- .debug_str     0x00019bcf      0x1c1 ./hardware/kit/common/drivers/displayls013b7dh03.o
+ .debug_str     0x00019aea      0x1c1 ./hardware/kit/common/drivers/displayls013b7dh03.o
                                 0xaa9 (size before relaxing)
- .debug_str     0x00019d90      0x422 ./hardware/kit/common/drivers/displaypalemlib.o
+ .debug_str     0x00019cab      0x422 ./hardware/kit/common/drivers/displaypalemlib.o
                                0x1114 (size before relaxing)
- .debug_str     0x0001a1b2      0x3d6 ./hardware/kit/common/drivers/mx25flash_spi.o
+ .debug_str     0x0001a0cd      0x3d6 ./hardware/kit/common/drivers/mx25flash_spi.o
                                 0xf66 (size before relaxing)
- .debug_str     0x0001a588      0x1a2 ./hardware/kit/common/drivers/retargetio.o
+ .debug_str     0x0001a4a3      0x1a2 ./hardware/kit/common/drivers/retargetio.o
                                 0x84c (size before relaxing)
- .debug_str     0x0001a72a      0x60d ./hardware/kit/common/drivers/retargetserial.o
+ .debug_str     0x0001a645      0x60d ./hardware/kit/common/drivers/retargetserial.o
                                0x13e1 (size before relaxing)
- .debug_str     0x0001ad37      0x387 ./hardware/kit/common/drivers/udelay.o
+ .debug_str     0x0001ac52      0x387 ./hardware/kit/common/drivers/udelay.o
                                0x1099 (size before relaxing)
- .debug_str     0x0001b0be      0x147 ./platform/Device/SiliconLabs/EFR32BG13P/Source/system_efr32bg13p.o
+ .debug_str     0x0001afd9      0x147 ./platform/Device/SiliconLabs/EFR32BG13P/Source/system_efr32bg13p.o
                                 0x6c5 (size before relaxing)
- .debug_str     0x0001b205      0x10f ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
+ .debug_str     0x0001b120      0x10f ./platform/emdrv/gpiointerrupt/src/gpiointerrupt.o
                                 0x7f4 (size before relaxing)
- .debug_str     0x0001b314      0x4af ./platform/emdrv/nvm3/src/nvm3_default.o
+ .debug_str     0x0001b22f      0x4af ./platform/emdrv/nvm3/src/nvm3_default.o
                                 0xb51 (size before relaxing)
- .debug_str     0x0001b7c3      0x1db ./platform/emdrv/nvm3/src/nvm3_hal_flash.o
+ .debug_str     0x0001b6de      0x1db ./platform/emdrv/nvm3/src/nvm3_hal_flash.o
                                0x109e (size before relaxing)
- .debug_str     0x0001b99e       0x74 ./platform/emdrv/nvm3/src/nvm3_lock.o
+ .debug_str     0x0001b8b9       0x74 ./platform/emdrv/nvm3/src/nvm3_lock.o
                                 0xb44 (size before relaxing)
- .debug_str     0x0001ba12      0x222 ./platform/emdrv/sleep/src/sleep.o
+ .debug_str     0x0001b92d      0x222 ./platform/emdrv/sleep/src/sleep.o
                                 0x924 (size before relaxing)
- .debug_str     0x0001bc34     0x2390 ./platform/emlib/src/em_adc.o
+ .debug_str     0x0001bb4f     0x2390 ./platform/emlib/src/em_adc.o
                                0x2c7b (size before relaxing)
- .debug_str     0x0001dfc4      0xae8 ./platform/emlib/src/em_cmu.o
+ .debug_str     0x0001dedf      0xae8 ./platform/emlib/src/em_cmu.o
                                0x1b68 (size before relaxing)
- .debug_str     0x0001eaac      0x2c7 ./platform/emlib/src/em_core.o
+ .debug_str     0x0001e9c7      0x2c7 ./platform/emlib/src/em_core.o
                                 0x93c (size before relaxing)
- .debug_str     0x0001ed73      0x825 ./platform/emlib/src/em_crypto.o
+ .debug_str     0x0001ec8e      0x825 ./platform/emlib/src/em_crypto.o
                                 0xfac (size before relaxing)
- .debug_str     0x0001f598      0xba4 ./platform/emlib/src/em_emu.o
+ .debug_str     0x0001f4b3      0xba4 ./platform/emlib/src/em_emu.o
                                0x1db2 (size before relaxing)
- .debug_str     0x0002013c      0x180 ./platform/emlib/src/em_gpio.o
+ .debug_str     0x00020057      0x180 ./platform/emlib/src/em_gpio.o
                                 0x8ee (size before relaxing)
- .debug_str     0x000202bc      0x256 ./platform/emlib/src/em_letimer.o
+ .debug_str     0x000201d7      0x256 ./platform/emlib/src/em_letimer.o
                                 0x549 (size before relaxing)
- .debug_str     0x00020512      0x146 ./platform/emlib/src/em_msc.o
+ .debug_str     0x0002042d      0x146 ./platform/emlib/src/em_msc.o
                                 0x6a5 (size before relaxing)
- .debug_str     0x00020658      0x15e ./platform/emlib/src/em_rmu.o
+ .debug_str     0x00020573      0x15e ./platform/emlib/src/em_rmu.o
                                 0x449 (size before relaxing)
- .debug_str     0x000207b6      0x2a0 ./platform/emlib/src/em_rtcc.o
+ .debug_str     0x000206d1      0x2a0 ./platform/emlib/src/em_rtcc.o
                                 0xaa6 (size before relaxing)
- .debug_str     0x00020a56       0xa9 ./platform/emlib/src/em_system.o
+ .debug_str     0x00020971       0xa9 ./platform/emlib/src/em_system.o
                                 0x371 (size before relaxing)
- .debug_str     0x00020aff      0x379 ./platform/emlib/src/em_usart.o
+ .debug_str     0x00020a1a      0x379 ./platform/emlib/src/em_usart.o
                                 0xded (size before relaxing)
- .debug_str     0x00020e78      0x2b5 ./platform/middleware/glib/dmd/display/dmd_display.o
+ .debug_str     0x00020d93      0x2b5 ./platform/middleware/glib/dmd/display/dmd_display.o
                                 0xb4f (size before relaxing)
- .debug_str     0x0002112d      0x20b ./platform/middleware/glib/glib/glib.o
+ .debug_str     0x00021048      0x20b ./platform/middleware/glib/glib/glib.o
                                 0xa97 (size before relaxing)
- .debug_str     0x00021338       0x51 ./platform/middleware/glib/glib/glib_font_narrow_6x8.o
+ .debug_str     0x00021253       0x51 ./platform/middleware/glib/glib/glib_font_narrow_6x8.o
                                 0x74a (size before relaxing)
- .debug_str     0x00021389       0x51 ./platform/middleware/glib/glib/glib_font_normal_8x8.o
+ .debug_str     0x000212a4       0x51 ./platform/middleware/glib/glib/glib_font_normal_8x8.o
                                 0x74a (size before relaxing)
- .debug_str     0x000213da       0x97 ./platform/middleware/glib/glib/glib_rectangle.o
+ .debug_str     0x000212f5       0x97 ./platform/middleware/glib/glib/glib_rectangle.o
                                 0x95d (size before relaxing)
- .debug_str     0x00021471       0xc3 ./platform/middleware/glib/glib/glib_string.o
+ .debug_str     0x0002138c       0xc3 ./platform/middleware/glib/glib/glib_string.o
                                 0x93d (size before relaxing)
- .debug_str     0x00021534      0xb34 ./platform/radio/rail_lib/plugin/coexistence/common/coexistence.o
+ .debug_str     0x0002144f      0xb34 ./platform/radio/rail_lib/plugin/coexistence/common/coexistence.o
                                 0xe20 (size before relaxing)
- .debug_str     0x00022068      0x237 ./platform/radio/rail_lib/plugin/coexistence/hal/efr32/coexistence-hal.o
+ .debug_str     0x00021f83      0x237 ./platform/radio/rail_lib/plugin/coexistence/hal/efr32/coexistence-hal.o
                                0x1095 (size before relaxing)
- .debug_str     0x0002229f      0x572 ./platform/service/sleeptimer/src/sl_sleeptimer.o
+ .debug_str     0x000221ba      0x572 ./platform/service/sleeptimer/src/sl_sleeptimer.o
                                 0xcb1 (size before relaxing)
- .debug_str     0x00022811      0x145 ./platform/service/sleeptimer/src/sl_sleeptimer_hal_rtcc.o
+ .debug_str     0x0002272c      0x145 ./platform/service/sleeptimer/src/sl_sleeptimer_hal_rtcc.o
                                 0xffd (size before relaxing)
- .debug_str     0x00022956      0xb95 ./protocol/bluetooth/ble_stack/src/soc/coexistence-ble.o
+ .debug_str     0x00022871      0xb95 ./protocol/bluetooth/ble_stack/src/soc/coexistence-ble.o
                                0x1736 (size before relaxing)
- .debug_str     0x000234eb      0x175 ./protocol/bluetooth/ble_stack/src/soc/coexistence_counters-ble.o
+ .debug_str     0x00023406      0x175 ./protocol/bluetooth/ble_stack/src/soc/coexistence_counters-ble.o
                                 0x923 (size before relaxing)
- .debug_str     0x00023660      0x11f ./protocol/bluetooth/bt_mesh/src/bg_application_properties.o
+ .debug_str     0x0002357b      0x11f ./protocol/bluetooth/bt_mesh/src/bg_application_properties.o
                                 0x34c (size before relaxing)
- .debug_str     0x0002377f      0x41c ./protocol/bluetooth/bt_mesh/src/mesh_lib.o
+ .debug_str     0x0002369a      0x472 ./protocol/bluetooth/bt_mesh/src/mesh_lib.o
                               0x17b55 (size before relaxing)
- .debug_str     0x00023b9b       0x9c ./protocol/bluetooth/bt_mesh/src/mesh_serdeser.o
+ .debug_str     0x00023b0c       0x9c ./protocol/bluetooth/bt_mesh/src/mesh_serdeser.o
                                0x12db (size before relaxing)
- .debug_str     0x00023c37       0xc1 ./src/adc.o
+ .debug_str     0x00023ba8       0xc1 ./src/adc.o
                                0x3088 (size before relaxing)
- .debug_str     0x00023cf8        0xd ./src/cmu.o
+ .debug_str     0x00023c69        0xd ./src/cmu.o
                                 0x692 (size before relaxing)
- .debug_str     0x00023d05       0xef ./src/display.o
+ .debug_str     0x00023c76       0xef ./src/display.o
                                 0xb0b (size before relaxing)
- .debug_str     0x00023df4       0x2c ./src/gecko_ble_errors.o
+ .debug_str     0x00023d65       0x2c ./src/gecko_ble_errors.o
                                0x20e2 (size before relaxing)
- .debug_str     0x00023e20       0x6a ./src/gpio.o
+ .debug_str     0x00023d91       0x6a ./src/gpio.o
                                 0xdef (size before relaxing)
- .debug_str     0x00023e8a      0x111 ./src/letimer.o
+ .debug_str     0x00023dfb      0x111 ./src/letimer.o
                                0x139d (size before relaxing)
- .debug_str     0x00023f9b       0x16 ./src/log.o
+ .debug_str     0x00023f0c       0x16 ./src/log.o
                                 0x6c1 (size before relaxing)
 
 .debug_frame    0x00000000     0x4894

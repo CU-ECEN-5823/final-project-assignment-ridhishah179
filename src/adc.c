@@ -4,11 +4,11 @@
 * @author Ridhi Shah
 * This file contains functions to read ADC Value
   to a specified period and Energy mode
-* @references:
+* @references:https://github.com/SiliconLabs/peripheral_examples/tree/master/series0/adc/adc_single_interrupt/SimplicityStudio
 ************************************************************************************/
 #include "adc.h"
 
-
+/*Initialize ADC Features*/
 void Sensor_Init(void)
 {
 	/* Enabling the ADC0 clock*/
@@ -31,9 +31,9 @@ void Sensor_Init(void)
    ADC_InitSingle(ADC0, &sInit);
 }
 
+/*get data from ADC*/
 uint16_t get_adc_data()
 {
-	/*Enabling the ADC0 interrupt*/
 	 NVIC_EnableIRQ(ADC0_IRQn);
 	 ADC_IntEnable(ADC0,ADC_IF_SINGLE);
 	ADC_Start(ADC0, adcStartSingle);
@@ -46,10 +46,10 @@ uint16_t get_adc_data()
 	return sensor_data;
 }
 
+/*IRQ Handler for ADC*/
 void ADC0_IRQHandler(void)
 {
 	ADC_flag = true;
-	/*Disabling ADC0 interrupt*/
 	NVIC_DisableIRQ(ADC0_IRQn);
 	ADC_IntDisable(ADC0,ADC_IF_SINGLE);
 }

@@ -186,8 +186,6 @@ void LETIMER0_IRQHandler(void)
 	//Set event on underflow interrupt
 	 if(letimer_flags & LETIMER_IF_UF)
 	{
-		// gecko_external_signal(period_expired);
-		//occured_event = period_expired;
 		period_expired = 1;
 		count_msec = count_msec + 1;
 		LETIMER_IntClear(LETIMER0,LETIMER_IFC_UF);
