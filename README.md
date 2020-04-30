@@ -4,12 +4,7 @@
 
 ## Project Status 
 
-   - Fire Sensor has been interfaced and Digital output pin is connected to pin 12 of the gpioPortD  and Analog output has been              connected to pin 9 of gpioPortC which is Analog channel 9 port.    
-   - GPIO interrupt was configured and the potentiometer value on the fire sensor was set such as to define an extreme value to a given     environmental situation and an interrupt is raised when the signal exceeds this extreme value. 
-   - For monitoring the continuous values on the fire sensor the analog output pin is used. ADC configuration has been done for 12-bit        ADC with 2.5 volts internal reference to read these analog values from the fire sensor. 
-   - The Alert message when extreme value is crossed has been sent to the friend using Generic ON/OFF model. 
-   - Generic Level Model has also been implemented to send fire sensor values to the friend node for continuous monitoring.
-   - Communication has been established between LPN and friend nodes and transmission of the alert message and data has been verified.
+   - The bluetooth Mesh node has been initialized for LPN functionality and to establish friendship with the friend node. Software timer has been configured for re-establishing friendship with friend nodes in case of failure. 
 
 
 ##### Checked repository contains the following code implementation:
